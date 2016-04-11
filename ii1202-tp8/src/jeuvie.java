@@ -34,12 +34,7 @@ public class jeuvie {
 	
 	public static void main(String [] args){
 		
-			
-		
-		
 		int[][] tableau = new int[20][20];
-		
-		
 		
 		randomCellule(tableau);
 		
@@ -133,9 +128,6 @@ public class jeuvie {
 			return 0;
 		}
 	}
-	
-	
-	
 	
 	public static void afficher_tableau(int [][] tableau){
 		for(int i=0; i<tableau.length; i++){
