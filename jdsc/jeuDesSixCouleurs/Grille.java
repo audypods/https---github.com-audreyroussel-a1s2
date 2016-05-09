@@ -663,7 +663,7 @@ public class Grille extends JFrame{
 //----------------------------------------------------------------//
 	
 	public static int checkControle1(Lettre[][] grille,int compteur1){
-		Font k = new Font("Verdana", 3, 40);
+		Font k = new Font("Verdana", 3, 26);
 		for (int i=0; i<13; i++){
 			for (int j=0; j<13; j++){
 				if (grille[i][j].getControle(1)==true){
@@ -682,7 +682,7 @@ public class Grille extends JFrame{
 		return compteur1;
 	}
 	public static int checkControle2(Lettre[][] grille,int compteur2){
-		Font k = new Font("Verdana", 3, 40);
+		Font k = new Font("Verdana", 3, 26);
 		for (int i=0; i<13; i++){
 			for (int j=0; j<13; j++){
 				if (grille[i][j].getControle(2)==true){
@@ -702,7 +702,7 @@ public class Grille extends JFrame{
 	}
 	
 	public static int checkControle3(Lettre[][] grille,int compteur3){
-		Font k = new Font("Verdana", 3, 40);
+		Font k = new Font("Verdana", 3, 26);
 		for (int i=0; i<13; i++){
 			for (int j=0; j<13; j++){
 				if (grille[i][j].getControle(3)==true){
@@ -769,7 +769,7 @@ public class Grille extends JFrame{
 			}
 		}
 		
-		Font t = new Font("Verdana", 3, 60);
+		Font t = new Font("Verdana", 3, 32);
 		StdDraw.setFont(t);
 		if (compteur1>84){
 			StdDraw.text(18, 3, "le joueur 1 a gagné");

@@ -61,9 +61,9 @@ public class Main {
 		int compteurControle2 = 0;
 		//Compteur qui permet de déterminer à qui c'est le tour de jouer
 		int m=1;
-		Font j = new Font("Verdana", 3, 40);
+		Font j = new Font("Verdana", 3, 28);
 		Grille.creationValeursGrille(couleurs, compteurControle1, compteurControle2, 0, 0);
-		StdDraw.setCanvasSize(1920, 1080);
+		StdDraw.setCanvasSize(1366, 768);
 		StdDraw.setXscale(-1, 2*couleurs.length-0.0);
 		StdDraw.setYscale(-2, couleurs.length-1);
 		Grille.checkControle1(couleurs, compteurControle1);
