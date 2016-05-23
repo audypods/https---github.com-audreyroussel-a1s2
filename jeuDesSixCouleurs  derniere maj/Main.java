@@ -5,13 +5,12 @@ import edu.princeton.cs.introcs.StdDraw;
 
 
 public class Main {
-
-	//--------------------------------------------test menu-----------------------------------
 	public static void main(String[] args) {
 		menu(0);
 	}
 	
 	public static void choixJoueurs(){
+		StdDraw.show(0);
 		Font j = new Font("Bookman Old Style", 3, 70);
 		Font k = new Font("Bookman Old Style", 2, 40);
 		Font m = new Font("Bookman Old Style", 3, 28);
@@ -25,10 +24,8 @@ public class Main {
 		StdDraw.polygon(x, y);
 		StdDraw.text(13, 11, "Jeu des 6 couleurs");
 		StdDraw.setPenColor(130,130,130);
-		//StdDraw.filledRectangle(13, 8, 7.5, 0.5);
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.picture(13, 7, "unecaseblanche.png", 10, 2);
-		//StdDraw.rectangle(13, 8, 7.5, 0.5);
 		StdDraw.setFont(k);
 		StdDraw.filledRectangle(9, 4, 0.65, 0.6);
 		StdDraw.filledRectangle(9, 2, 0.65, 0.6);
@@ -57,6 +54,8 @@ public class Main {
 		StdDraw.text(22.5, -0.3, "Retour");
 		StdDraw.text(22.5, -0.7, "au menu");
 		StdDraw.setFont(k);
+		StdDraw.show(0);
+		StdDraw.show();
 		while (s==true && nbr!=1 && nbr!=2 && retour!="menu"){
 			if (StdDraw.mouseX()>=8.5 && StdDraw.mouseX()<=18.15 && StdDraw.mouseY()>=3.5 && StdDraw.mouseY()<=4.5){
 				if (g==0){
@@ -118,54 +117,6 @@ public class Main {
 			DeuxJoueurs();
 		}
 	}
-	//--------------------------------------------test menu-----------------------------------
-	/*public static void main(String[] args) {
-
-		Scanner sc = new Scanner(System.in);
-		
-		System.out.println(" ____________________________\n|                            |\n|   Le Jeu des 6 Couleurs    |\n|____________________________| \n\n");
-		
-		char choix;
-		System.out.println("Appuyez sur: \n\n (j) pour jouer au jeu \n (q) pour quitter l'application");
-		choix = sc.nextLine().charAt(0);
-		do {
-			if (choix == 'j'){
-				System.out.println("Veuillez maintenant renseigner le nombre de joueurs: \n\n(1) pour jouer contre l'ordinateur \n(2) pour un duel \n(3) jeu à 3 joueurs \n(4) melee générale !");
-				int nbrjoueurs=5;
-				while (nbrjoueurs!=1 && nbrjoueurs!=2 && nbrjoueurs!=3 && nbrjoueurs!=4){
-					nbrjoueurs = sc.nextInt();
-					if (nbrjoueurs==1){
-						UnJoueur();
-					}
-					else if (nbrjoueurs==2){
-						DeuxJoueurs();
-					}
-					else if (nbrjoueurs==3){
-						//TroisJoueurs();
-					}
-					else if (nbrjoueurs==4){
-						//QuatreJoueurs();
-					}
-					else{
-					System.out.println(" ________________________________________________\n/                                                 \\\n|  Veuillez entrer un des chiffres demandés !      |\n\\_________________________________________________/" );
-					}
-					sc.nextLine();
-				}
-				System.out.println(" _________________\n|                 |\n| Partie terminée |\n|_________________|\n\nAppuyez sur: \n\n(j) pour recommencer une partie \n(q) pour quitter l'application" );
-				choix = sc.nextLine().charAt(0);
-			}
-			else if (choix == 'q'){
-				
-			}
-			else {
-				System.out.println(" ________________________________________________\n/                                                 \\\n|  Veuillez entrer un des charactères demandés !  |\n\\_________________________________________________/" );
-				choix = sc.nextLine().charAt(0);
-			}
-		} while (choix!= 'q');
-		System.out.println("Au revoir !" );
-		sc.close();
-	}*/
-	
 	
 	public static void UnJoueur(){
 		Lettre[][] couleurs = new Lettre[13][13];
@@ -174,9 +125,6 @@ public class Main {
 		int m=1;
 		Font j = new Font("Bookman Old Style", 3, 28);
 		Grille.creationValeursGrille(couleurs, compteurControle1, compteurControle2, 0, 0);
-		//StdDraw.setCanvasSize(1366, 768);
-		//StdDraw.setXscale(-1, 2*couleurs.length-0.0);
-		//StdDraw.setYscale(-2, couleurs.length-1);
 		StdDraw.picture(13, 5, "357653blanc.jpg");
 		StdDraw.picture(20, 5, "unecaseblanche.png", 7, 1);
 		StdDraw.picture(20, 4, "unecaseblanche.png", 7, 1);
@@ -202,19 +150,14 @@ public class Main {
 				Grille.stepIABest(couleurs);
 			}
 			Grille.majGrille(couleurs, grille2, compteurControle1, compteurControle2, 0, 0);
-			//StdDraw.setPenColor(StdDraw.RED);
-			//StdDraw.filledRectangle(20, 5, 5.9, 5);
 			StdDraw.picture(20, 5, "unecaseblanche.png", 7, 1);
 			StdDraw.picture(20, 4, "unecaseblanche.png", 7, 1);
 			StdDraw.setPenColor(StdDraw.BLACK);
 			Grille.checkControle(couleurs, compteurControle1, 1);
 			Grille.checkControle(couleurs, compteurControle2, 2);
 			m+=1;
-			if (Grille.verifGagnant(couleurs, compteurControle1, compteurControle2, 0, 0)==true){
-				Font l = new Font("Bookman Old Style", 3, 120);
-				StdDraw.setFont(l);
-				StdDraw.text(13, 6.5, "Partie terminée", 20);
-				m=170;		//on sort de la boucle
+			if (Grille.verifGagnant(couleurs, compteurControle1, compteurControle2)==true){
+				m=170;
 			}
 		}
 	}
@@ -228,9 +171,6 @@ public class Main {
 		int m=1;
 		Font j = new Font("Bookman Old Style", 3, 28);
 		Grille.creationValeursGrille(couleurs, compteurControle1, compteurControle2, 0, 0);
-		//StdDraw.setCanvasSize(1920, 1080);
-		//StdDraw.setXscale(-1, 2*couleurs.length-0.0);
-		//StdDraw.setYscale(-2, couleurs.length-1);
 		StdDraw.picture(13, 5, "357653blanc.jpg");
 		StdDraw.picture(20, 5, "unecaseblanche.png", 7, 1);
 		StdDraw.picture(20, 4, "unecaseblanche.png", 7, 1);
@@ -256,18 +196,13 @@ public class Main {
 				Grille.stepJoueur2(couleurs);
 			}
 			Grille.majGrille(couleurs, grille2, compteurControle1, compteurControle2, 0, 0);
-			//StdDraw.setPenColor(StdDraw.WHITE);
-			//StdDraw.filledRectangle(20, 5, 5.9, 5);
 			StdDraw.picture(20, 5, "unecaseblanche.png", 7, 1);
 			StdDraw.picture(20, 4, "unecaseblanche.png", 7, 1);
 			StdDraw.setPenColor(StdDraw.BLACK);
 			Grille.checkControle(couleurs, compteurControle1, 1);
 			Grille.checkControle(couleurs, compteurControle2, 2);
 			m+=1;
-			if (Grille.verifGagnant(couleurs, compteurControle1, compteurControle2, 0, 0)==true){
-				Font l = new Font("Verdana", 3, 120);
-				StdDraw.setFont(l);
-				StdDraw.text(13, 6.5, "Partie terminée", 20);
+			if (Grille.verifGagnant(couleurs, compteurControle1, compteurControle2)==true){
 				m=170;
 			}
 		}
@@ -277,32 +212,22 @@ public class Main {
 		StdDraw.setCanvasSize(1366, 768);
 		StdDraw.setXscale(-1, 26);
 		StdDraw.setYscale(-2, 12);
-		//StdDraw.setXscale(0, 26);
-		//StdDraw.setYscale(0, 13);
+		StdDraw.show(0);
 		StdDraw.setPenRadius(0.01);
 		Font j = new Font("Bookman Old Style", 3, 70);
 		Font k = new Font("Bookman Old Style", 2, 40);
 		StdDraw.setFont(j);
 		StdDraw.picture(13, 5, "357653blanc.jpg");
 		StdDraw.setPenColor(StdDraw.WHITE);
-		//StdDraw.setPenColor(130,130,130);
 		double[] x = { 5.3, 20.5, 20, 5.8 };
 		double[] y = { 12, 12, 10.5, 10.5 };
 		StdDraw.filledPolygon(x, y);
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.polygon(x, y);
-		//StdDraw.setPenColor(/*StdDraw.GREEN*/130,130,130);
 		StdDraw.text(13, 11, "Jeu des 6 couleurs");
-		StdDraw.setPenColor(StdDraw.BLUE);
-		//StdDraw.filledRectangle(13, 7, 4, 1);
 		StdDraw.picture(13, 7, "unecaseblanche.png", 8, 2);
-		StdDraw.setPenColor(/*StdDraw.GREEN*/130,130,130);
-		//StdDraw.filledRectangle(13, 4, 4, 1);
 		StdDraw.picture(13, 4, "unecaseblanche.png", 8, 2);
-		StdDraw.setPenColor(StdDraw.RED);
-		//StdDraw.filledRectangle(13, 1, 4, 1);
 		StdDraw.picture(13, 1, "unecaseblanche.png", 8, 2);
-		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.setFont(k);
 		StdDraw.rectangle(13, 7, 4, 1);
 		StdDraw.rectangle(13, 4, 4, 1);
@@ -315,13 +240,14 @@ public class Main {
 		int f =0;
 		int g =0;
 		int choix=4;
+		StdDraw.show(0);
+		StdDraw.show();
 		while (r == true && choix!=0 && choix!=1 && choix!=2){
 			
 			
 			if (StdDraw.mouseX()>=9 && StdDraw.mouseX()<=17 && StdDraw.mouseY()>=0 && StdDraw.mouseY()<=2){
 				if (e==0){
 					StdDraw.setPenColor(255, 150, 0);
-					//StdDraw.filledRectangle(13, 1, 4, 1);
 					StdDraw.picture(13, 1, "unecasepickedblanche.png", 8, 2);
 					StdDraw.setPenColor(StdDraw.BLACK);
 					StdDraw.rectangle(13, 1, 4, 1);
@@ -350,8 +276,6 @@ public class Main {
 			}
 			else {
 				if (e==1){
-					StdDraw.setPenColor(StdDraw.RED);
-					//StdDraw.filledRectangle(13, 1, 4, 1);
 					StdDraw.picture(13, 1, "unecaseblanche.png", 8, 2);
 					StdDraw.setPenColor(StdDraw.BLACK);
 					StdDraw.rectangle(13, 1, 4, 1);
@@ -366,8 +290,6 @@ public class Main {
 			//---------------------------------------------------------------------
 			if (StdDraw.mouseX()>=9 && StdDraw.mouseX()<=17 && StdDraw.mouseY()>=3 && StdDraw.mouseY()<=5){
 				if (f==0){
-					StdDraw.setPenColor(StdDraw.YELLOW);
-					//StdDraw.filledRectangle(13, 4, 4, 1);
 					StdDraw.picture(13, 4, "unecasepickedblanche.png", 8, 2);
 					StdDraw.setPenColor(StdDraw.BLACK);
 					StdDraw.rectangle(13, 4, 4, 1);
@@ -395,8 +317,6 @@ public class Main {
 			}
 			else {
 				if (f==1){
-					StdDraw.setPenColor(StdDraw.GREEN);
-					//StdDraw.filledRectangle(13, 4, 4, 1);
 					StdDraw.picture(13, 4, "unecaseblanche.png", 8, 2);
 					StdDraw.setPenColor(StdDraw.BLACK);
 					StdDraw.rectangle(13, 4, 4, 1);
@@ -408,11 +328,8 @@ public class Main {
 				}
 				
 			}
-			//---------------------------------------------------------------------
 			if (StdDraw.mouseX()>=9 && StdDraw.mouseX()<=17 && StdDraw.mouseY()>=6 && StdDraw.mouseY()<=8){
 				if (g==0){
-					StdDraw.setPenColor(204,51,204);
-					//StdDraw.filledRectangle(13, 7, 4, 1);
 					StdDraw.picture(13, 7, "unecasepickedblanche.png", 8, 2);
 					StdDraw.setPenColor(StdDraw.BLACK);
 					StdDraw.rectangle(13, 7, 4, 1);
@@ -443,8 +360,6 @@ public class Main {
 			}
 			else {
 				if (g==1){
-					StdDraw.setPenColor(StdDraw.BLUE);
-					//StdDraw.filledRectangle(13, 7, 4, 1);
 					StdDraw.picture(13, 7, "unecaseblanche.png", 8, 2);
 					StdDraw.setPenColor(StdDraw.BLACK);
 					StdDraw.rectangle(13, 7, 4, 1);
@@ -458,23 +373,21 @@ public class Main {
 			}
 		}
 		if (choix==1){
-			System.out.print("choix 1");
 			System.exit(0);
 		}
 		else if (choix==2){
-			System.out.print("choix 2");
 			regles();
 		}
 		else if ( choix==0){
-			System.out.print("choix 0");
 			choixJoueurs();
 		}
-		else 
-			System.out.print("echec");
+		else{
+			
+		}
 	}
 	
 	public static void regles(){
-		
+		StdDraw.show(0);
 		Font j = new Font("Bookman Old Style", 3, 70);
 		Font k = new Font("Bookman Old Style", 2, 28);
 		Font l = new Font("Bookman Old Style", 2, 46);
@@ -490,10 +403,8 @@ public class Main {
 		StdDraw.polygon(x, y);
 		StdDraw.text(13, 11, "Jeu des 6 couleurs");
 		StdDraw.setPenColor(130,130,130);
-		//StdDraw.filledRectangle(13, 8, 7.5, 0.5);
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.picture(13, 9, "unecaseblanche.png", 10, 2);
-		//StdDraw.rectangle(13, 8, 7.5, 0.5);
 		StdDraw.setFont(l);
 		StdDraw.text(13, 9, "Règles du jeu");
 		StdDraw.setFont(k);
@@ -525,6 +436,8 @@ public class Main {
 		StdDraw.text(22.5, -0.3, "Retour");
 		StdDraw.text(22.5, -0.7, "au menu");
 		String retour="regles";
+		StdDraw.show(0);
+		StdDraw.show();
 		while (retour!="menu"){
 			if (StdDraw.mouseX()>=20.5 && StdDraw.mouseX()<=25.5 && StdDraw.mouseY()>=-1.3 && StdDraw.mouseY()<=0.3 ){
 				if (StdDraw.mousePressed()){
@@ -537,7 +450,7 @@ public class Main {
 	}
 	
 	public static void finDuJeu(String joueur){
-		for (double i=12; i>3; i-=0.04){
+		for (double i=12; i>3; i-=0.16){
 			double[] xx = { 9, 9, 13, 17, 17 };
 			double[] xxx = { 9.5, 9.5, 13, 16.5, 16.5 };
 			double[] yy = { 13, i, i-1, i, 13 };
@@ -550,28 +463,21 @@ public class Main {
 			StdDraw.filledPolygon(xxx, yyy);
 			StdDraw.setPenColor(StdDraw.RED);
 			StdDraw.filledPolygon(xxxx, yyyy);
-			//StdDraw.filledRectangle(13, 6+i, 4, 5);
-			//StdDraw.filledRectangle(13, 2+i, 4, 1);
 			StdDraw.setPenColor(StdDraw.YELLOW);
-			//StdDraw.filledRectangle(13, 16-i, 3.5, 5);
-			//StdDraw.filledPolygon(xxx, yyy);
 			StdDraw.setPenColor(StdDraw.RED);
-			//StdDraw.filledPolygon(xxxx, yyyy);
-			//StdDraw.filledRectangle(13, 16-i, 3.4, 5);
 			StdDraw.setPenColor(StdDraw.BLACK);
 			StdDraw.text(13, i+3, "Partie terminée");
 			StdDraw.text(13, i+2, "Le " + joueur + " a gagné");
-			StdDraw.show(2);
+			StdDraw.show(5);
+			
 		}
+		restartMenu();
+	}
+	
+	public static void restartMenu(){
+		StdDraw.picture(13, 6, "unecaseblanche.png", 15, 6);
 	}
 }
-	//                    stepjoueur3
-	//					  verifgagnant3
-	//
-	// l'idée serait de rajouter un parametre a chaque fonction qui serait le nombre de joueurs | permettrait de raccourcir le code en ne creant pas une fonction pr chaque nbr de joueurs
-	//
-	
-	
 
 //bugs : 
 
@@ -581,8 +487,8 @@ public class Main {
 //ne pas recharger a chaque fois             x
 //jeu entierement graphique					 X
 //choix du nombre de joueurs  				 v
-//choix de la forme du jeu
-//choix de la taille du jeu
+//choix de la forme du jeu					out
+//choix de la taille du jeu					out
 //IA hasard									 x
 //IA qui capture le plus de cases			 X
 //

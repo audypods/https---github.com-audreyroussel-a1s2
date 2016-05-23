@@ -7,6 +7,7 @@ public class Lettre implements Cloneable{
 	char lettre;
 	boolean controle;
 	int joueur;
+	boolean controleChecked=false;
 	
 	public Lettre(){
 		
@@ -49,4 +50,14 @@ public class Lettre implements Cloneable{
 	public void setLettre(char newletter){
 		lettre=newletter;
 	}
+
+	public boolean isControleChecked() {
+		return controleChecked;
+	}
+
+	public void setControleChecked(boolean controleChecked) {
+		this.controleChecked = controleChecked;
+	}
+	
+	
 }
