@@ -1,6 +1,5 @@
 package jeuDesSixCouleurs;
 import java.awt.Font;
-import java.util.Scanner;
 import edu.princeton.cs.introcs.StdDraw;
 
 
@@ -14,7 +13,6 @@ public class Main {
 		Font j = new Font("Bookman Old Style", 3, 70);
 		Font k = new Font("Bookman Old Style", 2, 40);
 		Font m = new Font("Bookman Old Style", 3, 28);
-		StdDraw.setFont(j);
 		StdDraw.picture(13, 5, "357653blanc.jpg");
 		StdDraw.setPenColor(StdDraw.WHITE);
 		double[] x = { 5.3, 20.5, 20, 5.8 };
@@ -22,8 +20,8 @@ public class Main {
 		StdDraw.filledPolygon(x, y);
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.polygon(x, y);
+		StdDraw.setFont(j);
 		StdDraw.text(13, 11, "Jeu des 6 couleurs");
-		StdDraw.setPenColor(130,130,130);
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.picture(13, 7, "unecaseblanche.png", 10, 2);
 		StdDraw.setFont(k);
@@ -124,15 +122,14 @@ public class Main {
 		int compteurControle2 = 0;
 		int m=1;
 		Font j = new Font("Bookman Old Style", 3, 28);
-		Grille.creationValeursGrille(couleurs, compteurControle1, compteurControle2, 0, 0);
+		Grille.creationValeursGrille(couleurs, compteurControle1, compteurControle2);
 		StdDraw.picture(13, 5, "357653blanc.jpg");
 		StdDraw.picture(20, 5, "unecaseblanche.png", 7, 1);
 		StdDraw.picture(20, 4, "unecaseblanche.png", 7, 1);
 		StdDraw.picture(20, 0.5, "unecaseblanche.png", 10, 2);
 		Grille.checkControle(couleurs, compteurControle1, 1);
-		Grille.checkControle(couleurs, compteurControle2, 2);
-		Grille.dessineGrille(couleurs, compteurControle1, compteurControle2, 0, 0);
-		boolean findujeu = false;
+		Grille.checkControle(couleurs, compteurControle2, 3);
+		Grille.dessineGrille(couleurs, compteurControle1, compteurControle2);
 		char[][] grille2 = new char[13][13];
 		while (m<=169){
 			for (int k=0; k<13; k++)
@@ -143,20 +140,20 @@ public class Main {
 			StdDraw.picture(20, 7, "unecaseblanche.png", 9, 1);
 			if (m%2!=0 && m!=2){
 				StdDraw.text(20, 7, "C'est au Joueur 1");
-				Grille.stepJoueur1(couleurs);
+				Grille.stepJoueur1(couleurs, compteurControle1, compteurControle2);
 			}
 			else {
 				StdDraw.text(20, 7, "C'est à l'ordinateur");
 				Grille.stepIABest(couleurs);
 			}
-			Grille.majGrille(couleurs, grille2, compteurControle1, compteurControle2, 0, 0);
+			Grille.majGrille(couleurs, grille2, compteurControle1, compteurControle2);
 			StdDraw.picture(20, 5, "unecaseblanche.png", 7, 1);
 			StdDraw.picture(20, 4, "unecaseblanche.png", 7, 1);
 			StdDraw.setPenColor(StdDraw.BLACK);
 			Grille.checkControle(couleurs, compteurControle1, 1);
 			Grille.checkControle(couleurs, compteurControle2, 2);
 			m+=1;
-			if (Grille.verifGagnant(couleurs, compteurControle1, compteurControle2)==true){
+			if (Grille.verifGagnant(couleurs, compteurControle1, compteurControle2, 1)==true){
 				m=170;
 			}
 		}
@@ -170,15 +167,14 @@ public class Main {
 		int compteurControle2 = 0;
 		int m=1;
 		Font j = new Font("Bookman Old Style", 3, 28);
-		Grille.creationValeursGrille(couleurs, compteurControle1, compteurControle2, 0, 0);
+		Grille.creationValeursGrille(couleurs, compteurControle1, compteurControle2);
 		StdDraw.picture(13, 5, "357653blanc.jpg");
 		StdDraw.picture(20, 5, "unecaseblanche.png", 7, 1);
 		StdDraw.picture(20, 4, "unecaseblanche.png", 7, 1);
 		StdDraw.picture(20, 0.5, "unecaseblanche.png", 10, 2);
 		Grille.checkControle(couleurs, compteurControle1, 1);
 		Grille.checkControle(couleurs, compteurControle2, 2);
-		Grille.dessineGrille(couleurs, compteurControle1, compteurControle2, 0, 0);
-		boolean findujeu = false;
+		Grille.dessineGrille(couleurs, compteurControle1, compteurControle2);
 		char[][] grille2 = new char[13][13];
 		while (m<=169){
 			for (int k=0; k<13; k++)
@@ -189,20 +185,20 @@ public class Main {
 			StdDraw.picture(20, 7, "unecaseblanche.png", 9, 1);
 			if (m%2!=0 && m!=2){
 				StdDraw.text(20, 7, "C'est au Joueur 1");
-				Grille.stepJoueur1(couleurs);
+				Grille.stepJoueur1(couleurs, compteurControle1, compteurControle2);
 			}
 			else {
 				StdDraw.text(20, 7, "C'est au Joueur 2");
-				Grille.stepJoueur2(couleurs);
+				Grille.stepJoueur2(couleurs, compteurControle1, compteurControle2);
 			}
-			Grille.majGrille(couleurs, grille2, compteurControle1, compteurControle2, 0, 0);
+			Grille.majGrille(couleurs, grille2, compteurControle1, compteurControle2);
 			StdDraw.picture(20, 5, "unecaseblanche.png", 7, 1);
 			StdDraw.picture(20, 4, "unecaseblanche.png", 7, 1);
 			StdDraw.setPenColor(StdDraw.BLACK);
 			Grille.checkControle(couleurs, compteurControle1, 1);
 			Grille.checkControle(couleurs, compteurControle2, 2);
 			m+=1;
-			if (Grille.verifGagnant(couleurs, compteurControle1, compteurControle2)==true){
+			if (Grille.verifGagnant(couleurs, compteurControle1, compteurControle2, 0)==true){
 				m=170;
 			}
 		}
@@ -247,7 +243,6 @@ public class Main {
 			
 			if (StdDraw.mouseX()>=9 && StdDraw.mouseX()<=17 && StdDraw.mouseY()>=0 && StdDraw.mouseY()<=2){
 				if (e==0){
-					StdDraw.setPenColor(255, 150, 0);
 					StdDraw.picture(13, 1, "unecasepickedblanche.png", 8, 2);
 					StdDraw.setPenColor(StdDraw.BLACK);
 					StdDraw.rectangle(13, 1, 4, 1);
@@ -287,7 +282,6 @@ public class Main {
 				}
 				
 			}
-			//---------------------------------------------------------------------
 			if (StdDraw.mouseX()>=9 && StdDraw.mouseX()<=17 && StdDraw.mouseY()>=3 && StdDraw.mouseY()<=5){
 				if (f==0){
 					StdDraw.picture(13, 4, "unecasepickedblanche.png", 8, 2);
@@ -381,9 +375,6 @@ public class Main {
 		else if ( choix==0){
 			choixJoueurs();
 		}
-		else{
-			
-		}
 	}
 	
 	public static void regles(){
@@ -449,11 +440,199 @@ public class Main {
 		return;
 	}
 	
-	public static void finDuJeu(String joueur){
+	public static void restartMenu(int retour, int x, Lettre[][] grille, int compteur1, int compteur2, int joueur){
+		Font k = new Font("Bookman Old Style", 2, 40);
+		Font l = new Font("Bookman Old Style", 3, 50);
+		StdDraw.picture(x, 6.7, "unecaseblanche.png", 8.5, 8);
+		StdDraw.picture(x, 8, "unecaseblanche.png", 8, 2);
+		StdDraw.picture(x, 6, "unecaseblanche.png", 8, 2);
+		StdDraw.picture(x, 4, "unecaseblanche.png", 8, 2);
+		StdDraw.setFont(l);
+		if (x==4)
+			StdDraw.text(x, 9.5, "Menu");
+		else
+			StdDraw.text(x, 9.5, "Pause");
+		StdDraw.setFont(k);
+		if (x==4)
+			StdDraw.text(x, 8, "Nouvelle partie");
+		else
+			StdDraw.text(x, 8, "Reprendre la partie");
+		StdDraw.text(x, 6, "Menu principal");
+		StdDraw.text(x, 4, "Quitter l'application");
+		
+		boolean r = true;
+		int e =0;
+		int f =0;
+		int g =0;
+		int choix=4;
+		while (r == true && choix!=0 && choix!=1 && choix!=2){
+			if (StdDraw.mouseX()>=x-4 && StdDraw.mouseX()<=x+4 && StdDraw.mouseY()>=7 && StdDraw.mouseY()<=9){
+				if (e==0){
+					StdDraw.picture(x, 8, "unecasepickedblanche.png", 8, 2);
+					StdDraw.setPenColor(StdDraw.BLACK);
+					StdDraw.rectangle(x, 8, 4, 1);
+					if (x==4)
+						StdDraw.text(x, 8, "Nouvelle partie");
+					else
+						StdDraw.text(x, 8, "Reprendre la partie");
+					e=1;
+				}
+				else {
+					
+				}
+				if (retour==0){
+					if (StdDraw.mousePressed()){
+						r= false;
+						choix = 1;
+					}
+				}
+				else if (retour==1){
+					if (!StdDraw.mousePressed()){
+						r= false;
+						choix = 1;
+					}
+				}
+				
+				else {
+					
+				}
+			}
+			else {
+				if (e==1){
+					StdDraw.picture(x, 8, "unecaseblanche.png", 8, 2);
+					StdDraw.setPenColor(StdDraw.BLACK);
+					StdDraw.rectangle(x, 8, 4, 1);
+					if (x==4)
+						StdDraw.text(x, 8, "Nouvelle partie");
+					else
+						StdDraw.text(x, 8, "Reprendre la partie");
+					e=0;
+				}
+				else{
+					
+				}
+				
+			}
+			if (StdDraw.mouseX()>=x-4 && StdDraw.mouseX()<=x+4 && StdDraw.mouseY()>=5 && StdDraw.mouseY()<=7){
+				if (f==0){
+					StdDraw.picture(x, 6, "unecasepickedblanche.png", 8, 2);
+					StdDraw.setPenColor(StdDraw.BLACK);
+					StdDraw.rectangle(x, 6, 4, 1);
+					StdDraw.text(x, 6, "Menu principal");
+					f=1;
+				}
+				else {
+					
+				}
+				if (retour==0){
+					if (StdDraw.mousePressed()){
+						r= false;
+						choix = 2;
+					}
+				}
+				if (retour==1){
+					if (!StdDraw.mousePressed()){
+						r= false;
+						choix = 2;
+					}
+				}
+				else {
+					
+				}
+			}
+			else {
+				if (f==1){
+					StdDraw.picture(x, 6, "unecaseblanche.png", 8, 2);
+					StdDraw.setPenColor(StdDraw.BLACK);
+					StdDraw.rectangle(x, 6, 4, 1);
+					StdDraw.text(x, 6, "Menu principal");
+					f=0;
+				}
+				else{
+					
+				}
+				
+			}
+			if (StdDraw.mouseX()>=x-4 && StdDraw.mouseX()<=x+4 && StdDraw.mouseY()>=3 && StdDraw.mouseY()<=5){
+				if (g==0){
+					StdDraw.picture(x, 4, "unecasepickedblanche.png", 8, 2);
+					StdDraw.setPenColor(StdDraw.BLACK);
+					StdDraw.rectangle(x, 4, 4, 1);
+					StdDraw.text(x, 4, "Quitter l'application");
+					g=1;
+				}
+				else {
+					
+				}
+				
+				if (retour==0){
+					if (StdDraw.mousePressed()){
+						r= false;
+						choix = 0;
+					}
+				}
+				else if (retour==1){
+					if (!StdDraw.mousePressed()){
+						r= false;
+						choix = 0;
+					}
+				}
+				
+				
+				else {
+					
+				}
+			}
+			else {
+				if (g==1){
+					StdDraw.picture(x, 4, "unecaseblanche.png", 8, 2);
+					StdDraw.setPenColor(StdDraw.BLACK);
+					StdDraw.rectangle(x, 4, 4, 1);
+					StdDraw.text(x, 4, "Quitter l'application");
+					g=0;
+				}
+				else{
+					
+				}
+				
+			}
+		}
+		if (choix==1){
+			if (x==13) {
+				StdDraw.show(0);
+				Font j = new Font("Bookman Old Style", 3, 28);
+				StdDraw.picture(13, 5, "357653blanc.jpg");
+				StdDraw.picture(20, 5, "unecaseblanche.png", 7, 1);
+				StdDraw.picture(20, 4, "unecaseblanche.png", 7, 1);
+				StdDraw.picture(20, 0.5, "unecaseblanche.png", 10, 2);
+				Grille.checkControle(grille, compteur1, 1);
+				Grille.checkControle(grille, compteur2, 2);
+				Grille.dessineGrille(grille, compteur1, compteur2);
+				Grille.dessinCouleurs();
+				StdDraw.setFont(j);
+				StdDraw.setPenColor(StdDraw.BLACK);
+				StdDraw.picture(20, 7, "unecaseblanche.png", 9, 1);
+				StdDraw.text(20, 7, "C'est au Joueur "+ joueur);
+				StdDraw.show(0);
+				StdDraw.show();
+			}
+			else {
+				choixJoueurs();
+			}
+		}
+		else if (choix==2){
+			menu(1);
+		}
+		else if ( choix==0){
+			System.exit(0);
+		}
+	}
+	
+	public static void finDuJeu(String joueur, Lettre[][] grille, int compteur1, int compteur2){
 		for (double i=12; i>3; i-=0.16){
 			double[] xx = { 9, 9, 13, 17, 17 };
-			double[] xxx = { 9.5, 9.5, 13, 16.5, 16.5 };
 			double[] yy = { 13, i, i-1, i, 13 };
+			double[] xxx = { 9.5, 9.5, 13, 16.5, 16.5 };
 			double[] yyy = { 13, i+0.4, i-0.5, i+0.4, 13 };
 			double[] xxxx = { 9.8, 9.8, 13, 16.2, 16.2 };
 			double[] yyyy = { 13, i+0.7, i-0.2, i+0.7, 13 };
@@ -467,28 +646,10 @@ public class Main {
 			StdDraw.setPenColor(StdDraw.RED);
 			StdDraw.setPenColor(StdDraw.BLACK);
 			StdDraw.text(13, i+3, "Partie terminée");
-			StdDraw.text(13, i+2, "Le " + joueur + " a gagné");
+			StdDraw.text(13, i+2, joueur + " a gagné");
 			StdDraw.show(5);
-			
 		}
-		restartMenu();
-	}
-	
-	public static void restartMenu(){
-		StdDraw.picture(13, 6, "unecaseblanche.png", 15, 6);
+		StdDraw.show();
+		restartMenu(0, 4, grille, compteur1, compteur2, 0);
 	}
 }
-
-//bugs : 
-
-//à faire:
-//ranger                                     x
-//faire des boutons							 X
-//ne pas recharger a chaque fois             x
-//jeu entierement graphique					 X
-//choix du nombre de joueurs  				 v
-//choix de la forme du jeu					out
-//choix de la taille du jeu					out
-//IA hasard									 x
-//IA qui capture le plus de cases			 X
-//

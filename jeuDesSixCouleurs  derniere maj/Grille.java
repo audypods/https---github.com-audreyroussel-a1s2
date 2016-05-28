@@ -2,15 +2,10 @@ package jeuDesSixCouleurs;
 import java.util.Scanner;
 import edu.princeton.cs.introcs.StdDraw;
 import java.lang.Character;
-import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import java.util.Random;
 
-public class Grille extends JFrame{
-
+public class Grille{
 	char[][] couleurs;
 
 	public Grille(){
@@ -18,7 +13,7 @@ public class Grille extends JFrame{
 	}
 	
 	
-	public static Lettre[][] creationValeursGrille(Lettre[][] grille, int compteur1, int compteur2, int compteur3, int compteur4){
+	public static Lettre[][] creationValeursGrille(Lettre[][] grille, int compteur1, int compteur2){
 		
 		for (int i=0; i<13; i++){
 			for (int j=0; j<13; j++){
@@ -42,7 +37,7 @@ public class Grille extends JFrame{
 	
 	
 	
-	public static Lettre[][] dessineGrille(Lettre[][] grille, int compteur1, int compteur2, int compteur3, int compteur4){
+	public static Lettre[][] dessineGrille(Lettre[][] grille, int compteur1, int compteur2){
 		StdDraw.show(0);
 		for (int i=0; i<13; i++){
 			for (int j=0; j<13; j++){
@@ -70,24 +65,13 @@ public class Grille extends JFrame{
 				if (grille[i][j].getControle(1)==true){
 					StdDraw.setPenRadius(0.005);
 					StdDraw.setPenColor(StdDraw.BLACK);
-					StdDraw.filledSquare(j, 11-i, 0.1);
+					StdDraw.filledSquare(j, 11-i, 0.05);
 				}
 				
 				else if (grille[i][j].getControle(2)==true){
 					StdDraw.setPenRadius(0.005);
 					StdDraw.setPenColor(StdDraw.BLACK);
-					StdDraw.filledCircle(j, 11-i, 0.1);
-				}
-				
-				else if (grille[i][j].getControle(3)==true && compteur3!=0){
-					StdDraw.setPenRadius(0.005);
-					StdDraw.setPenColor(StdDraw.BLACK);
-					StdDraw.square(j, 11-i, 0.1);
-				}
-				else if (grille[i][j].getControle(4)==true && compteur4!=0){
-					StdDraw.setPenRadius(0.005);
-					StdDraw.setPenColor(StdDraw.BLACK);
-					StdDraw.circle(j, 11-i, 0.1);
+					StdDraw.filledCircle(j, 11-i, 0.05);
 				}
 				
 				Font k = new Font("Verdana", 3, 40);
@@ -175,7 +159,7 @@ public class Grille extends JFrame{
 		StdDraw.show(0);
 	}
 	
-	public static Lettre[][] stepJoueur1(Lettre[][] grille){
+	public static Lettre[][] stepJoueur1(Lettre[][] grille, int compteur1, int compteur2){
 		StdDraw.show(0);
 		char choix1=grille[0][0].getLettre();
 		char choix2=grille[12][12].getLettre();
@@ -184,31 +168,15 @@ public class Grille extends JFrame{
 		dessinCouleurs();
 		StdDraw.show(0);
 		StdDraw.show();
+		croixCouleurs(choix1, choix2);
+		StdDraw.filledRectangle(23, -1.2, 2.5, 0.8);
+		StdDraw.setPenColor(StdDraw.WHITE);
+		StdDraw.filledRectangle(23, -1.2, 2.4, 0.7);
+		StdDraw.picture( 24.5, -1.2, "retour.png");
 		StdDraw.setPenColor(StdDraw.BLACK);
-		if (Character.toLowerCase(choix2)=='i' || Character.toLowerCase(choix1)=='i'){
-			StdDraw.line(13, 1.7, 14, 2.7);
-			StdDraw.line(13, 2.7, 14, 1.7);
-		}
-		if (Character.toLowerCase(choix2)=='r' || Character.toLowerCase(choix1)=='r'){
-			StdDraw.line(13, 4.1, 14, 5.1);
-			StdDraw.line(13, 5.1, 14, 4.1);
-		}
-		if (Character.toLowerCase(choix2)=='j' || Character.toLowerCase(choix1)=='j'){
-			StdDraw.line(13, 6.5, 14, 7.5);
-			StdDraw.line(13, 7.5, 14, 6.5);
-		}
-		if (Character.toLowerCase(choix2)=='b' || Character.toLowerCase(choix1)=='b'){
-			StdDraw.line(13, 5.3, 14, 6.3);
-			StdDraw.line(13, 6.3, 14, 5.3);
-		}
-		if (Character.toLowerCase(choix2)=='v' || Character.toLowerCase(choix1)=='v'){
-			StdDraw.line(13, 2.9, 14, 3.9);
-			StdDraw.line(13, 3.9, 14, 2.9);
-		}
-		if (Character.toLowerCase(choix2)=='o' || Character.toLowerCase(choix1)=='o'){
-			StdDraw.line(13, 0.5, 14, 1.5);
-			StdDraw.line(13, 1.5, 14, 0.5);
-		}
+		StdDraw.text(22.5, -0.8, "Retour");
+		StdDraw.text(22.5, -1.3, "au menu");
+		String retour="raté";
 		do{
 			double x=1,y=1;
 			while(!StdDraw.mousePressed()){
@@ -234,11 +202,26 @@ public class Grille extends JFrame{
 			else if (x>=13 && x<=14 && y>=0.5 && y<=1.5){
 				choix1 = 'o';
 			}
+			else if (x>=20.5 && x<=25.5 && y>=-2 && y<=-0.4 ){
+				retour="menu";
+				choix1='a';
+			}
 			else {
 				choix1='a';
 			}
 			
-		
+			if (retour=="menu"){
+				Main.restartMenu(0, 13, grille, compteur1, compteur2, 1);
+				croixCouleurs(ancienChoix1, choix2);
+				retour="raté";
+				StdDraw.filledRectangle(23, -1.2, 2.5, 0.8);
+				StdDraw.setPenColor(StdDraw.WHITE);
+				StdDraw.filledRectangle(23, -1.2, 2.4, 0.7);
+				StdDraw.picture( 24.5, -1, "retour.png");
+				StdDraw.setPenColor(StdDraw.BLACK);
+				StdDraw.text(22.5, -0.8, "Retour");
+				StdDraw.text(22.5, -1.3, "au menu");
+			}
 			if (Character.toLowerCase(choix1) == Character.toLowerCase(choix2)){
 				StdDraw.picture(20, 0.5, "unecaseblanche.png", 10, 2);
 				StdDraw.setPenColor(StdDraw.BLACK);
@@ -256,7 +239,7 @@ public class Grille extends JFrame{
 				StdDraw.text(20, 1, "vous ne pouvez pas rechoisir");
 				StdDraw.text(20, 0, "la même couleur !           ");
 			}
-
+			
 			else {
 				for (int i=0;  i<13; i++){
 					for (int j=0; j<13; j++){
@@ -304,22 +287,12 @@ public class Grille extends JFrame{
 		}
 	}while(Character.toLowerCase(choix1) != 'r' && Character.toLowerCase(choix1) != 'v' && Character.toLowerCase(choix1) != 'b' && Character.toLowerCase(choix1) != 'j' && Character.toLowerCase(choix1) != 'o' && Character.toLowerCase(choix1) != 'i' || Character.toLowerCase(choix1)== Character.toLowerCase(ancienChoix1) || Character.toLowerCase(choix1) == Character.toLowerCase(choix2));
 		StdDraw.picture(20, 0.5, "unecaseblanche.png", 10, 2);
-		//StdDraw.setPenColor(StdDraw.WHITE);
-		//StdDraw.filledRectangle(19, 0.5, 5, 1);
 		reinitControleChecked(grille);
 		return grille;
 	}
 	
-	public static Lettre[][] stepJoueur2(Lettre[][] grille){
-		StdDraw.show(0);
-		char choix1=grille[0][0].getLettre();
-		char choix2=grille[12][12].getLettre();
-		char ancienChoix2=grille[12][12].getLettre();
-		Scanner scan = new Scanner(System.in);
-		dessinCouleurs();
+	public static void croixCouleurs(char choix1, char choix2){
 		StdDraw.setPenColor(StdDraw.BLACK);
-		StdDraw.show(0);
-		StdDraw.show();
 		if (Character.toLowerCase(choix1)=='i' || Character.toLowerCase(choix2)=='i'){
 			StdDraw.line(13, 1.7, 14, 2.7);
 			StdDraw.line(13, 2.7, 14, 1.7);
@@ -344,6 +317,27 @@ public class Grille extends JFrame{
 			StdDraw.line(13, 0.5, 14, 1.5);
 			StdDraw.line(13, 1.5, 14, 0.5);
 		}
+	}
+	
+	public static Lettre[][] stepJoueur2(Lettre[][] grille, int compteur1, int compteur2){
+		StdDraw.show(0);
+		char choix1=grille[0][0].getLettre();
+		char choix2=grille[12][12].getLettre();
+		char ancienChoix2=grille[12][12].getLettre();
+		Scanner scan = new Scanner(System.in);
+		dessinCouleurs();
+		StdDraw.setPenColor(StdDraw.BLACK);
+		StdDraw.show(0);
+		StdDraw.show();
+		croixCouleurs(ancienChoix2, choix1);
+		StdDraw.filledRectangle(23, -1.2, 2.5, 0.8);
+		StdDraw.setPenColor(StdDraw.WHITE);
+		StdDraw.filledRectangle(23, -1.2, 2.4, 0.7);
+		StdDraw.picture( 24.5, -1.2, "retour.png");
+		StdDraw.setPenColor(StdDraw.BLACK);
+		StdDraw.text(22.5, -0.8, "Retour");
+		StdDraw.text(22.5, -1.3, "au menu");
+		String retour="raté";
 		do{
 			double x=1,y=1;
 			while(!StdDraw.mousePressed()){
@@ -369,12 +363,25 @@ public class Grille extends JFrame{
 			else if (x>=13 && x<=14 && y>=0.5 && y<=1.5){
 				choix2 = 'o';
 			}
+			else if (x>=20.5 && x<=25.5 && y>=-2 && y<=-0.4 ){
+				retour="menu";
+			}
 			else {
 				choix2='a';
 			}
-			//StdDraw.setPenColor(StdDraw.WHITE);
-			//StdDraw.filledRectangle(19, 0.5, 5, 1);
-
+			if (retour=="menu"){
+				Main.restartMenu(0, 13, grille, compteur1, compteur2, 2);
+				croixCouleurs(ancienChoix2, choix1);
+				retour="raté";
+				StdDraw.filledRectangle(23, -1.2, 2.5, 0.8);
+				StdDraw.setPenColor(StdDraw.WHITE);
+				StdDraw.filledRectangle(23, -1.2, 2.4, 0.7);
+				StdDraw.picture( 24.5, -1, "retour.png");
+				StdDraw.setPenColor(StdDraw.BLACK);
+				StdDraw.text(22.5, -0.8, "Retour");
+				StdDraw.text(22.5, -1.3, "au menu");
+			}
+			
 			if (Character.toLowerCase(choix2) != 'r' && Character.toLowerCase(choix2) != 'v' && Character.toLowerCase(choix2) != 'b' && Character.toLowerCase(choix2) != 'j' && Character.toLowerCase(choix2) != 'o' && Character.toLowerCase(choix2) != 'i'){
 				StdDraw.setPenColor(StdDraw.BLACK);
 			}
@@ -441,14 +448,10 @@ public class Grille extends JFrame{
 			}
 		}while(Character.toLowerCase(choix2) != 'r' && Character.toLowerCase(choix2) != 'v' && Character.toLowerCase(choix2) != 'b' && Character.toLowerCase(choix2) != 'j' && Character.toLowerCase(choix2) != 'o' && Character.toLowerCase(choix2) != 'i' || Character.toLowerCase(choix2) == Character.toLowerCase(choix1) || Character.toLowerCase(choix2) == Character.toLowerCase(ancienChoix2));
 		StdDraw.picture(20, 0.5, "unecaseblanche.png", 10, 2);
-		//StdDraw.setPenColor(StdDraw.WHITE);
-		//StdDraw.filledRectangle(19, 0.5, 5, 1);
 		return grille;
 	}
-//----------------------------------------------------------------//
 	
 	
-//----------------------------------------------------------------//
 	public static Lettre[][] stepIAHasard(Lettre[][] grille){
 		
 		char choix1=grille[0][0].getLettre();
@@ -482,9 +485,7 @@ public class Grille extends JFrame{
 						if (a==true){
 							grille[i][j].setLettre(choix2);
 							
-							//---------test
 							boolean test=false;
-							//---------
 							
 							if (j!=0){
 								char d = grille[i][j-1].getLettre();
@@ -520,8 +521,8 @@ public class Grille extends JFrame{
 				}
 		return grille;
 	}
-	//***************************************************
-	//_____________________________________
+	
+	
 	public static boolean checkGauche(Lettre[][] grille, int i, int j){
 		if (j!=0){
 			if (grille[i][j].getLettre()==grille[i][j-1].getLettre() && grille[i][j-1].isControleChecked()==false){
@@ -536,6 +537,7 @@ public class Grille extends JFrame{
 			return false;
 		}
 	}
+	
 	
 	public static boolean checkDroite(Lettre[][] grille, int i, int j){
 		if (j!=12){
@@ -552,6 +554,8 @@ public class Grille extends JFrame{
 		}
 	}
 	
+	
+	
 	public static boolean checkHaut(Lettre[][] grille, int i, int j){
 		if (i!=0){
 			if (grille[i][j].getLettre()==grille[i-1][j].getLettre() && grille[i-1][j].isControleChecked()==false){
@@ -567,6 +571,8 @@ public class Grille extends JFrame{
 		}
 	}
 	
+	
+	
 	public static boolean checkBas(Lettre[][] grille, int i, int j){
 		if (i!=12){
 			if (grille[i][j].getLettre()==grille[i+1][j].getLettre() && grille[i+1][j].isControleChecked()==false){
@@ -581,6 +587,8 @@ public class Grille extends JFrame{
 			return false;
 		}
 	}
+	
+	
 	
 	public static int  horizontaleCheck(Lettre[][]grille, int i, int j){
 		int valeur=0;
@@ -598,7 +606,7 @@ public class Grille extends JFrame{
 			}
 		}while (v == true);
 		j=a;
-		//------------------------
+		
 		do{
 			if (checkDroite(grille, i, j)==true){
 				valeur+=1;
@@ -613,6 +621,8 @@ public class Grille extends JFrame{
 		j=a;
 		return valeur;
 	}
+	
+	
 	
 	public static int  verticalCheck(Lettre[][]grille, int i, int j){
 	int val=0;
@@ -630,7 +640,7 @@ public class Grille extends JFrame{
 		}
 	}while (x == true);
 	i=a;
-	//---------------------------
+	
 	do{
 		if (checkBas(grille, i, j)==true){
 			val+=1;
@@ -646,6 +656,8 @@ public class Grille extends JFrame{
 	return val;
 	}
 	
+	
+	
 	public static void reinitControleChecked(Lettre[][] grille){
 		for (int deb=0; deb<13; deb++){
 			for (int fin=0; fin<13; fin++){
@@ -658,342 +670,396 @@ public class Grille extends JFrame{
 			}
 		}
 	}
-	//_____________________________________
+	
 	
 public static Lettre[][] stepIABest(Lettre[][] grille){
 		int choixCouleur[] = {0,0,0,0,0,0};
 		char choix1=grille[0][0].getLettre();
-		for (int a=0; a<13; a++){
-			for (int b=0; b<13; b++){
+		for (int a=0; a<=12; a++){
+			for (int b=0; b<=12; b++){
+				
 				if (a==0 && b>0 && b<12){
-					if (grille[a+1][b].getControle(2)==true || grille[a][b-1].getControle(2)==true || grille[a][b+1].getControle(2)==true && grille[a][b].isControleChecked()==false){
+					if ((grille[a+1][b].getControle(2)==true || grille[a][b-1].getControle(2)==true || grille[a][b+1].getControle(2)==true) && grille[a][b].isControleChecked()==false){
 							if (grille[a][b].getLettre()=='r'){
 								choixCouleur[0]+=1;
-								choixCouleur[0]+=verticalCheck(grille, b, a);
-								choixCouleur[0]+=horizontaleCheck(grille, b, a);
+								grille[a][b].setControleChecked(true);
+								choixCouleur[0]+=verticalCheck(grille, a, b);
+								choixCouleur[0]+=horizontaleCheck(grille, a, b);
 							}
 							else if (grille[a][b].getLettre()=='o'){
 								choixCouleur[1]+=1;
-								choixCouleur[1]+=verticalCheck(grille, b, a);
-								choixCouleur[1]+=horizontaleCheck(grille, b, a);
+								grille[a][b].setControleChecked(true);
+								choixCouleur[1]+=verticalCheck(grille, a, b);
+								choixCouleur[1]+=horizontaleCheck(grille, a, b);
 							}
 							else if (grille[a][b].getLettre()=='j'){
 								choixCouleur[2]+=1;
-								choixCouleur[2]+=verticalCheck(grille, b, a);
-								choixCouleur[2]+=horizontaleCheck(grille, b, a);
+								grille[a][b].setControleChecked(true);
+								choixCouleur[2]+=verticalCheck(grille, a, b);
+								choixCouleur[2]+=horizontaleCheck(grille, a, b);
 							}
 							else if (grille[a][b].getLettre()=='v'){
 								choixCouleur[3]+=1;
-								choixCouleur[3]+=verticalCheck(grille, b, a);
-								choixCouleur[3]+=horizontaleCheck(grille, b, a);
+								grille[a][b].setControleChecked(true);
+								choixCouleur[3]+=verticalCheck(grille, a, b);
+								choixCouleur[3]+=horizontaleCheck(grille, a, b);
 							}
 							else if (grille[a][b].getLettre()=='b'){
 								choixCouleur[4]+=1;
-								choixCouleur[4]+=verticalCheck(grille, b, a);
-								choixCouleur[4]+=horizontaleCheck(grille, b, a);
+								grille[a][b].setControleChecked(true);
+								choixCouleur[4]+=verticalCheck(grille, a, b);
+								choixCouleur[4]+=horizontaleCheck(grille, a, b);
 							}
 							else if (grille[a][b].getLettre()=='i'){
 								choixCouleur[5]+=1;
-								choixCouleur[5]+=verticalCheck(grille, b, a);
-								choixCouleur[5]+=horizontaleCheck(grille, b, a);
+								grille[a][b].setControleChecked(true);
+								choixCouleur[5]+=verticalCheck(grille, a, b);
+								choixCouleur[5]+=horizontaleCheck(grille, a, b);
 							}
 							else{
 							}
 					}
 				}
 				else if (a==12 && b>0 && b<12){
-					if (grille[a-1][b].getControle(2)==true || grille[a][b-1].getControle(2)==true || grille[a][b+1].getControle(2)==true && grille[a][b].isControleChecked()==false){
+					if ((grille[a-1][b].getControle(2)==true || grille[a][b-1].getControle(2)==true || grille[a][b+1].getControle(2)==true) && grille[a][b].isControleChecked()==false){
 						if (grille[a][b].getLettre()=='r'){
 							choixCouleur[0]+=1;
-							choixCouleur[0]+=verticalCheck(grille, b, a);
-							choixCouleur[0]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[0]+=verticalCheck(grille, a, b);
+							choixCouleur[0]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='o'){
 							choixCouleur[1]+=1;
-							choixCouleur[1]+=verticalCheck(grille, b, a);
-							choixCouleur[1]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[1]+=verticalCheck(grille, a, b);
+							choixCouleur[1]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='j'){
 							choixCouleur[2]+=1;
-							choixCouleur[2]+=verticalCheck(grille, b, a);
-							choixCouleur[2]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[2]+=verticalCheck(grille, a, b);
+							choixCouleur[2]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='v'){
 							choixCouleur[3]+=1;
-							choixCouleur[3]+=verticalCheck(grille, b, a);
-							choixCouleur[3]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[3]+=verticalCheck(grille, a, b);
+							choixCouleur[3]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='b'){
 							choixCouleur[4]+=1;
-							choixCouleur[4]+=verticalCheck(grille, b, a);
-							choixCouleur[4]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[4]+=verticalCheck(grille, a, b);
+							choixCouleur[4]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='i'){
 							choixCouleur[5]+=1;
-							choixCouleur[5]+=verticalCheck(grille, b, a);
-							choixCouleur[5]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[5]+=verticalCheck(grille, a, b);
+							choixCouleur[5]+=horizontaleCheck(grille, a, b);
 						}
 						else{
 						}
 					}
 				}
 				else if (b==0 && a>0 && a<12){
-					if (grille[a-1][b].getControle(2)==true || grille[a+1][b].getControle(2)==true || grille[a][b+1].getControle(2)==true && grille[a][b].isControleChecked()==false){
+					if ((grille[a-1][b].getControle(2)==true || grille[a+1][b].getControle(2)==true || grille[a][b+1].getControle(2)==true) && grille[a][b].isControleChecked()==false){
 						if (grille[a][b].getLettre()=='r'){
 							choixCouleur[0]+=1;
-							choixCouleur[0]+=verticalCheck(grille, b, a);
-							choixCouleur[0]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[0]+=verticalCheck(grille, a, b);
+							choixCouleur[0]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='o'){
 							choixCouleur[1]+=1;
-							choixCouleur[1]+=verticalCheck(grille, b, a);
-							choixCouleur[1]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[1]+=verticalCheck(grille, a, b);
+							choixCouleur[1]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='j'){
 							choixCouleur[2]+=1;
-							choixCouleur[2]+=verticalCheck(grille, b, a);
-							choixCouleur[2]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[2]+=verticalCheck(grille, a, b);
+							choixCouleur[2]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='v'){
 							choixCouleur[3]+=1;
-							choixCouleur[3]+=verticalCheck(grille, b, a);
-							choixCouleur[3]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[3]+=verticalCheck(grille, a, b);
+							choixCouleur[3]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='b'){
 							choixCouleur[4]+=1;
-							choixCouleur[4]+=verticalCheck(grille, b, a);
-							choixCouleur[4]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[4]+=verticalCheck(grille, a, b);
+							choixCouleur[4]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='i'){
 							choixCouleur[5]+=1;
-							choixCouleur[5]+=verticalCheck(grille, b, a);
-							choixCouleur[5]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[5]+=verticalCheck(grille, a, b);
+							choixCouleur[5]+=horizontaleCheck(grille, a, b);
 						}
 						else{
 						}
 					}
 				}
 				else if (b==12 && a>0 && a<12){
-					if (grille[a-1][b].getControle(2)==true || grille[a+1][b].getControle(2)==true || grille[a][b-1].getControle(2)==true && grille[a][b].isControleChecked()==false){
+					if ((grille[a-1][b].getControle(2)==true || grille[a+1][b].getControle(2)==true || grille[a][b-1].getControle(2)==true) && grille[a][b].isControleChecked()==false){
 						if (grille[a][b].getLettre()=='r'){
 							choixCouleur[0]+=1;
-							choixCouleur[0]+=verticalCheck(grille, b, a);
-							choixCouleur[0]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[0]+=verticalCheck(grille, a, b);
+							choixCouleur[0]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='o'){
 							choixCouleur[1]+=1;
-							choixCouleur[1]+=verticalCheck(grille, b, a);
-							choixCouleur[1]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[1]+=verticalCheck(grille, a, b);
+							choixCouleur[1]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='j'){
 							choixCouleur[2]+=1;
-							choixCouleur[2]+=verticalCheck(grille, b, a);
-							choixCouleur[2]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[2]+=verticalCheck(grille, a, b);
+							choixCouleur[2]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='v'){
 							choixCouleur[3]+=1;
-							choixCouleur[3]+=verticalCheck(grille, b, a);
-							choixCouleur[3]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[3]+=verticalCheck(grille, a, b);
+							choixCouleur[3]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='b'){
 							choixCouleur[4]+=1;
-							choixCouleur[4]+=verticalCheck(grille, b, a);
-							choixCouleur[4]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[4]+=verticalCheck(grille, a, b);
+							choixCouleur[4]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='i'){
 							choixCouleur[5]+=1;
-							choixCouleur[5]+=verticalCheck(grille, b, a);
-							choixCouleur[5]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[5]+=verticalCheck(grille, a, b);
+							choixCouleur[5]+=horizontaleCheck(grille, a, b);
 						}
 						else{
 						}
 					}
 				}
 				else if (a>0 && a<12 && b>0 && b<12){
-					if (grille[a-1][b].getControle(2)==true || grille[a+1][b].getControle(2)==true || grille[a][b-1].getControle(2)==true || grille[a][b+1].getControle(2)==true && grille[a][b].isControleChecked()==false){
+					if ((grille[a-1][b].getControle(2)==true || grille[a+1][b].getControle(2)==true || grille[a][b-1].getControle(2)==true || grille[a][b+1].getControle(2)==true) && grille[a][b].isControleChecked()==false){
 						if (grille[a][b].getLettre()=='r'){
 							choixCouleur[0]+=1;
-							choixCouleur[0]+=verticalCheck(grille, b, a);
-							choixCouleur[0]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[0]+=verticalCheck(grille, a, b);
+							choixCouleur[0]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='o'){
 							choixCouleur[1]+=1;
-							choixCouleur[1]+=verticalCheck(grille, b, a);
-							choixCouleur[1]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[1]+=verticalCheck(grille, a, b);
+							choixCouleur[1]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='j'){
 							choixCouleur[2]+=1;
-							choixCouleur[2]+=verticalCheck(grille, b, a);
-							choixCouleur[2]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[2]+=verticalCheck(grille, a, b);
+							choixCouleur[2]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='v'){
 							choixCouleur[3]+=1;
-							choixCouleur[3]+=verticalCheck(grille, b, a);
-							choixCouleur[3]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[3]+=verticalCheck(grille, a, b);
+							choixCouleur[3]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='b'){
 							choixCouleur[4]+=1;
-							choixCouleur[4]+=verticalCheck(grille, b, a);
-							choixCouleur[4]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[4]+=verticalCheck(grille, a, b);
+							choixCouleur[4]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='i'){
 							choixCouleur[5]+=1;
-							choixCouleur[5]+=verticalCheck(grille, b, a);
-							choixCouleur[5]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[5]+=verticalCheck(grille, a, b);
+							choixCouleur[5]+=horizontaleCheck(grille, a, b);
 						}
 						else{
 						}
 					}
 				}
 				else if (a==0 && b==0){
-					if (grille[a+1][b].getControle(2)==true || grille[a][b+1].getControle(2)==true && grille[a][b].isControleChecked()==false){
+					if ((grille[a+1][b].getControle(2)==true || grille[a][b+1].getControle(2)==true) && grille[a][b].isControleChecked()==false){
 						if (grille[a][b].getLettre()=='r'){
 							choixCouleur[0]+=1;
-							choixCouleur[0]+=verticalCheck(grille, b, a);
-							choixCouleur[0]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[0]+=verticalCheck(grille, a, b);
+							choixCouleur[0]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='o'){
 							choixCouleur[1]+=1;
-							choixCouleur[1]+=verticalCheck(grille, b, a);
-							choixCouleur[1]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[1]+=verticalCheck(grille, a, b);
+							choixCouleur[1]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='j'){
 							choixCouleur[2]+=1;
-							choixCouleur[2]+=verticalCheck(grille, b, a);
-							choixCouleur[2]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[2]+=verticalCheck(grille, a, b);
+							choixCouleur[2]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='v'){
 							choixCouleur[3]+=1;
-							choixCouleur[3]+=verticalCheck(grille, b, a);
-							choixCouleur[3]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[3]+=verticalCheck(grille, a, b);
+							choixCouleur[3]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='b'){
 							choixCouleur[4]+=1;
-							choixCouleur[4]+=verticalCheck(grille, b, a);
-							choixCouleur[4]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[4]+=verticalCheck(grille, a, b);
+							choixCouleur[4]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='i'){
 							choixCouleur[5]+=1;
-							choixCouleur[5]+=verticalCheck(grille, b, a);
-							choixCouleur[5]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[5]+=verticalCheck(grille, a, b);
+							choixCouleur[5]+=horizontaleCheck(grille, a, b);
 						}
 							else{
 							}
 					}
 				}
 				else if (a==0 && b==12){
-					if (grille[a+1][b].getControle(2)==true || grille[a][b-1].getControle(2)==true && grille[a][b].isControleChecked()==false){
+					if ((grille[a+1][b].getControle(2)==true || grille[a][b-1].getControle(2)==true) && grille[a][b].isControleChecked()==false){
 						if (grille[a][b].getLettre()=='r'){
 							choixCouleur[0]+=1;
-							choixCouleur[0]+=verticalCheck(grille, b, a);
-							choixCouleur[0]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[0]+=verticalCheck(grille, a, b);
+							choixCouleur[0]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='o'){
 							choixCouleur[1]+=1;
-							choixCouleur[1]+=verticalCheck(grille, b, a);
-							choixCouleur[1]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[1]+=verticalCheck(grille, a, b);
+							choixCouleur[1]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='j'){
 							choixCouleur[2]+=1;
-							choixCouleur[2]+=verticalCheck(grille, b, a);
-							choixCouleur[2]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[2]+=verticalCheck(grille, a, b);
+							choixCouleur[2]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='v'){
 							choixCouleur[3]+=1;
-							choixCouleur[3]+=verticalCheck(grille, b, a);
-							choixCouleur[3]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[3]+=verticalCheck(grille, a, b);
+							choixCouleur[3]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='b'){
 							choixCouleur[4]+=1;
-							choixCouleur[4]+=verticalCheck(grille, b, a);
-							choixCouleur[4]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[4]+=verticalCheck(grille, a, b);
+							choixCouleur[4]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='i'){
 							choixCouleur[5]+=1;
-							choixCouleur[5]+=verticalCheck(grille, b, a);
-							choixCouleur[5]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[5]+=verticalCheck(grille, a, b);
+							choixCouleur[5]+=horizontaleCheck(grille, a, b);
 						}
 							else{
 							}
 					}
 				}
 				else if (a==12 && b==0){
-					if (grille[a-1][b].getControle(2)==true || grille[a][b+1].getControle(2)==true && grille[a][b].isControleChecked()==false){
+					if ((grille[a-1][b].getControle(2)==true || grille[a][b+1].getControle(2)==true) && grille[a][b].isControleChecked()==false){
 						if (grille[a][b].getLettre()=='r'){
 							choixCouleur[0]+=1;
-							choixCouleur[0]+=verticalCheck(grille, b, a);
-							choixCouleur[0]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[0]+=verticalCheck(grille, a, b);
+							choixCouleur[0]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='o'){
 							choixCouleur[1]+=1;
-							choixCouleur[1]+=verticalCheck(grille, b, a);
-							choixCouleur[1]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[1]+=verticalCheck(grille, a, b);
+							choixCouleur[1]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='j'){
 							choixCouleur[2]+=1;
-							choixCouleur[2]+=verticalCheck(grille, b, a);
-							choixCouleur[2]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[2]+=verticalCheck(grille, a, b);
+							choixCouleur[2]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='v'){
 							choixCouleur[3]+=1;
-							choixCouleur[3]+=verticalCheck(grille, b, a);
-							choixCouleur[3]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[3]+=verticalCheck(grille, a, b);
+							choixCouleur[3]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='b'){
 							choixCouleur[4]+=1;
-							choixCouleur[4]+=verticalCheck(grille, b, a);
-							choixCouleur[4]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[4]+=verticalCheck(grille, a, b);
+							choixCouleur[4]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='i'){
 							choixCouleur[5]+=1;
-							choixCouleur[5]+=verticalCheck(grille, b, a);
-							choixCouleur[5]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[5]+=verticalCheck(grille, a, b);
+							choixCouleur[5]+=horizontaleCheck(grille, a, b);
 						}
 							else{
 							}
 					}
 				}
 				else if (a==12 && b==12){
-					if (grille[a-1][b].getControle(2)==true || grille[a][b-1].getControle(2)==true && grille[a][b].isControleChecked()==false){
+					if ((grille[a-1][b].getControle(2)==true || grille[a][b-1].getControle(2)==true) && grille[a][b].isControleChecked()==false){
 						if (grille[a][b].getLettre()=='r'){
 							choixCouleur[0]+=1;
-							choixCouleur[0]+=verticalCheck(grille, b, a);
-							choixCouleur[0]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[0]+=verticalCheck(grille, a, b);
+							choixCouleur[0]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='o'){
 							choixCouleur[1]+=1;
-							choixCouleur[1]+=verticalCheck(grille, b, a);
-							choixCouleur[1]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[1]+=verticalCheck(grille, a, b);
+							choixCouleur[1]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='j'){
 							choixCouleur[2]+=1;
-							choixCouleur[2]+=verticalCheck(grille, b, a);
-							choixCouleur[2]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[2]+=verticalCheck(grille, a, b);
+							choixCouleur[2]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='v'){
 							choixCouleur[3]+=1;
-							choixCouleur[3]+=verticalCheck(grille, b, a);
-							choixCouleur[3]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[3]+=verticalCheck(grille, a, b);
+							choixCouleur[3]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='b'){
 							choixCouleur[4]+=1;
-							choixCouleur[4]+=verticalCheck(grille, b, a);
-							choixCouleur[4]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[4]+=verticalCheck(grille, a, b);
+							choixCouleur[4]+=horizontaleCheck(grille, a, b);
 						}
 						else if (grille[a][b].getLettre()=='i'){
 							choixCouleur[5]+=1;
-							choixCouleur[5]+=verticalCheck(grille, b, a);
-							choixCouleur[5]+=horizontaleCheck(grille, b, a);
+							grille[a][b].setControleChecked(true);
+							choixCouleur[5]+=verticalCheck(grille, a, b);
+							choixCouleur[5]+=horizontaleCheck(grille, a, b);
 						}
 							else{
 							}
 					}
 				}
-				grille[a][b].setControleChecked(true);
 			}
 		}
 		reinitControleChecked(grille);
-		// on vient de calculer pour chaque couleur le nbr de case a recuperer
+		System.out.println("test 1: {rouge" +choixCouleur[0] + " orange" + choixCouleur[1] + " jaune" + choixCouleur[2] + " vert" + choixCouleur[3] + " bleu" +choixCouleur[4] + " violet" +choixCouleur[5] + "}\n");
 		int max = 0;
 		int r=0;
 		for (int ktr = 0; ktr < choixCouleur.length; ktr++) {
@@ -1024,8 +1090,9 @@ public static Lettre[][] stepIABest(Lettre[][] grille){
 		}
 		
 		if (choix2==Character.toLowerCase(choix1) || choix2==lettreAvant){
-			choixCouleur[r]=-1;
+			choixCouleur[r]= -1;
 			max=0;
+			System.out.println("test 2: {rouge" +choixCouleur[0] + " orange" + choixCouleur[1] + " jaune" + choixCouleur[2] + " vert" + choixCouleur[3] + " bleu" +choixCouleur[4] + " violet" +choixCouleur[5] + "}\n");
 			for (int ktr = 0; ktr < choixCouleur.length; ktr++) {
 				if (choixCouleur[ktr] > max) {
 					max = choixCouleur[ktr];
@@ -1053,6 +1120,7 @@ public static Lettre[][] stepIABest(Lettre[][] grille){
 			if (choix2==Character.toLowerCase(choix1) || choix2==lettreAvant){
 				choixCouleur[r]=-1;
 				max=0;
+				System.out.println("test 3: {rouge" +choixCouleur[0] + " orange" + choixCouleur[1] + " jaune" + choixCouleur[2] + " vert" + choixCouleur[3] + " bleu" +choixCouleur[4] + " violet" +choixCouleur[5] + "}\n");
 				for (int ktr = 0; ktr < choixCouleur.length; ktr++) {
 					if (choixCouleur[ktr] > max) {
 						max = choixCouleur[ktr];
@@ -1123,26 +1191,16 @@ public static Lettre[][] stepIABest(Lettre[][] grille){
 			}
 		return grille;
 	}
-	//***************************************************
 
-	public static int checkalentours(Lettre[][] grille, int i, int j, int valeur, int suite){
-		if (i>0 && i<12 && j>0 && j<12){
-			if (grille[i][j-1].getLettre()==grille[i][j].getLettre() && grille[i][j-1].getControle(1)!=true && grille[i][j-1].getControle(2)!=true ){
-				valeur+=1;
-				checkalentours(grille, i, j-1, valeur, 0);
-				valeur+=suite;
-				
-			}
-		}
-		return valeur;
-	}
-//----------------------------------------------------------------//
 	
 	public static int checkControle(Lettre[][] grille,int compteur, int joueur){
 		Font k = new Font("Bookman Old Style", 3, 26);
 		for (int i=0; i<13; i++){
 			for (int j=0; j<13; j++){
 				if (grille[i][j].getControle(joueur)==true){
+					compteur+=1;
+				}
+				else if (joueur==3 && grille[i][j].getControle(2)==true){
 					compteur+=1;
 				}
 				else {
@@ -1153,18 +1211,22 @@ public static Lettre[][] stepIABest(Lettre[][] grille){
 		StdDraw.setFont(k);
 		if (compteur>1)
 			if (joueur==1)
-				StdDraw.text(20, 5, "le joueur " + joueur + " a " + compteur + " cases");
+				StdDraw.text(20, 5, "Le joueur " + joueur + " a " + compteur + " cases");
+			else if (joueur==3)
+				StdDraw.text(20, 4, "L'ordinateur a " + compteur + " cases");
 			else
-				StdDraw.text(20, 4, "le joueur " + joueur + " a " + compteur + " cases");
+				StdDraw.text(20, 4, "Le joueur " + joueur + " a " + compteur + " cases");
 		else
 			if (joueur==1)
-				StdDraw.text(20, 5, "le joueur "+ joueur+" a " + compteur + " case");
+				StdDraw.text(20, 5, "Le joueur "+ joueur+" a " + compteur + " case");
+			else if (joueur==3)
+				StdDraw.text(20, 4, "L'ordinateur a " + compteur + " case");
 			else 
-				StdDraw.text(20, 4, "le joueur "+ joueur+" a " + compteur + " case");
+				StdDraw.text(20, 4, "lLe joueur "+ joueur+" a " + compteur + " case");
 		return compteur;
 	}
 	
-	public static boolean verifGagnant(Lettre[][] grille,int compteur1, int compteur2){
+	public static boolean verifGagnant(Lettre[][] grille,int compteur1, int compteur2, int ordi){
 		for (int i=0; i<13; i++){
 			for (int j=0; j<13; j++){
 				if (grille[i][j].getControle(1)==true){
@@ -1188,13 +1250,16 @@ public static Lettre[][] stepIABest(Lettre[][] grille){
 		Font t = new Font("Bookman Old Style", 3, 32);
 		StdDraw.setFont(t);
 		if (compteur1>84){
-			Main.finDuJeu("joueur 1");
-			StdDraw.text(20, 0.5, "le joueur 1 a gagné");
+			Main.finDuJeu("Le joueur 1", grille, compteur1, compteur2);
 			return true;
 		}
 		else if (compteur2>84){
-			Main.finDuJeu("joueur 2");
-			StdDraw.text(20, 0.5, "le joueur 2 a gagné");
+			if (ordi==0){
+				Main.finDuJeu("Le joueur 2", grille, compteur1, compteur2);
+			}
+			else {
+				Main.finDuJeu("L'ordinateur", grille, compteur1, compteur2);
+			}
 			return true;
 		}
 		else {
@@ -1202,9 +1267,8 @@ public static Lettre[][] stepIABest(Lettre[][] grille){
 		}
 	}
 	
-	//---------------------------------FONCTION UPGRADE GRILLE-----------------------------------//
 	
-	public static void majGrille(Lettre[][] grille, char[][] grille2,  int compteur1, int compteur2, int compteur3, int compteur4){
+	public static void majGrille(Lettre[][] grille, char[][] grille2,  int compteur1, int compteur2){
 		StdDraw.show(0);
 		for (int i=0; i<13; i++){
 			for (int j=0; j<13; j++){
@@ -1224,31 +1288,19 @@ public static Lettre[][] stepIABest(Lettre[][] grille){
 					StdDraw.setPenRadius(0.01);
 					StdDraw.filledSquare(j, 11-i, 0.5);
 				
-					StdDraw.setPenColor(StdDraw.WHITE);
+					StdDraw.setPenColor(StdDraw.BLACK);
 					StdDraw.square(j, 11-i, 0.5);
-				
+					
 					if (grille[i][j].getControle(1)==true){
 						StdDraw.setPenRadius(0.005);
 						StdDraw.setPenColor(StdDraw.BLACK);
-						StdDraw.filledSquare(j, 11-i, 0.1);
+						StdDraw.filledSquare(j, 11-i, 0.05);
 					}
 				
 					else if (grille[i][j].getControle(2)==true){
 						StdDraw.setPenRadius(0.005);
 						StdDraw.setPenColor(StdDraw.BLACK);
-						StdDraw.filledCircle(j, 11-i, 0.1);
-					}
-					
-					else if (grille[i][j].getControle(3)==true){
-						StdDraw.setPenRadius(0.005);
-						StdDraw.setPenColor(StdDraw.BLACK);
-						StdDraw.square(j, 11-i, 0.1);
-					}
-					
-					else if (grille[i][j].getControle(4)==true){
-						StdDraw.setPenRadius(0.005);
-						StdDraw.setPenColor(StdDraw.BLACK);
-						StdDraw.circle(j, 11-i, 0.1);
+						StdDraw.filledCircle(j, 11-i, 0.05);
 					}
 					
 					else {
@@ -1268,5 +1320,4 @@ public static Lettre[][] stepIABest(Lettre[][] grille){
 		StdDraw.show(0);
 		StdDraw.show();
 	}
-	//---------------------------------FONCTION UPGRADE GRILLE-----------------------------------//
 }
