@@ -6,7 +6,13 @@ import java.awt.Font;
 public class Grille{
 	char[][] couleurs;
 	
-	
+	/**
+	 +	 * Methode qui cree la grille
+	 +	 * @param grille
+	 +	 * @param compteur1
+	 +	 * @param compteur2
+	 +	 * @return grille
+	 +	 */
 	public static Lettre[][] creationValeursGrille(Lettre[][] grille, int compteur1, int compteur2, int compteur3, int compteur4, int nbreJoueurs){
 		
 		for (int i=0; i<13; i++){
@@ -51,7 +57,13 @@ public class Grille{
 	}
 	
 	
-	
+	/**
+	 +	 * Methode qui dessine la grille
+	 +	 * @param grille
+	 +	 * @param compteur1
+	 +	 * @param compteur2
+	 +	 * @return grille
+	 +	 */
 	public static Lettre[][] dessineGrille(Lettre[][] grille, int compteur1, int compteur2, int compteur3, int compteur4, int nbreJoueurs){
 		StdDraw.show(0);
 		for (int i=0; i<13; i++){
@@ -135,7 +147,9 @@ public class Grille{
 		StdDraw.show();
 		return grille;
 	}
-	
+	/**
+	 +	 * Methode qui dessine les boutons pour choisir la couleur
+	 +	 */
 	public static void dessinCouleurs(){
 		StdDraw.show(0);
 		StdDraw.setPenColor(StdDraw.WHITE);
@@ -172,7 +186,14 @@ public class Grille{
 		StdDraw.square(13.5, 1, 0.5);
 		StdDraw.show(0);
 	}
-	
+	/**
+	 +	 * Methode qui demande au joueur le choix de sa couleur et modifie la grille ensuite
+	 +	 * @param grille
+	 +	 * @param compteur1
+	 +	 * @param compteur2
+	 +	 * @param joueur
+	 +	 * @return grille
+	 +	 */
 	public static Lettre[][] stepJoueur(Lettre[][] grille, int compteur1, int compteur2, int compteur3, int compteur4, int joueur, int nbreJoueurs){
 		StdDraw.show(0);
 		char choix1=grille[0][0].getLettre();
@@ -355,7 +376,14 @@ public class Grille{
 		reinitControleChecked(grille);
 		return grille;
 	}
-	
+	/**
+	 +	 * Methode qui demande au joueur le choix de sa couleur et modifie la grille ensuite
+	 +	 * @param grille
+	 +	 * @param compteur1
+	 +	 * @param compteur2
+	 +	 * @param joueur
+	 +	 * @return grille
+	 +	 */
 	public static void croixCouleurs(char choix1, char choix2, char choix3, char choix4, int nbreJoueurs){
 		StdDraw.setPenColor(StdDraw.BLACK);
 		if (nbreJoueurs<3){
@@ -390,7 +418,13 @@ public class Grille{
 		}
 	}
 	
-	
+	/**
+	 +	 * Methode qui regarde si la case a gauche de la case de param i, j est de la meme couleur qu'elle
+	 +	 * @param grille
+	 +	 * @param i
+	 +	 * @param j
+	 +	 * @return true or false
+	 +	 */
 	public static boolean checkGauche(Lettre[][] grille, int i, int j){
 		if (j!=0){
 			if (grille[i][j].getLettre()==grille[i][j-1].getLettre() && grille[i][j-1].isControleChecked()==false){
@@ -406,6 +440,13 @@ public class Grille{
 		}
 	}
 	
+	/**
+	 +	 * Methode qui regarde si la case a droite de la case de param i, j est de la meme couleur qu'elle
+	 +	 * @param grille
+	 +	 * @param i
+	 +	 * @param j
+	 +	 * @return true or false
+	 +	 */
 	public static boolean checkDroite(Lettre[][] grille, int i, int j){
 		if (j!=12){
 			if (grille[i][j].getLettre()==grille[i][j+1].getLettre() && grille[i][j+1].isControleChecked()==false){
@@ -421,6 +462,13 @@ public class Grille{
 		}
 	}
 	
+	/**
+	 +	 * Methode qui regarde si la case au dessus de la case de param i, j est de la meme couleur qu'elle
+	 +	 * @param grille
+	 +	 * @param i
+	 +	 * @param j
+	 +	 * @return true or false
+	 +	 */
 	public static boolean checkHaut(Lettre[][] grille, int i, int j){
 		if (i!=0){
 			if (grille[i][j].getLettre()==grille[i-1][j].getLettre() && grille[i-1][j].isControleChecked()==false){
@@ -436,6 +484,13 @@ public class Grille{
 		}
 	}
 	
+	/**
+	 +	 * Methode qui regarde si la case en dessous de la case de param i, j est de la meme couleur qu'elle
+	 +	 * @param grille
+	 +	 * @param i
+	 +	 * @param j
+	 +	 * @return true or false
+	 +	 */
 	public static boolean checkBas(Lettre[][] grille, int i, int j){
 		if (i!=12){
 			if (grille[i][j].getLettre()==grille[i+1][j].getLettre() && grille[i+1][j].isControleChecked()==false){
@@ -451,6 +506,13 @@ public class Grille{
 		}
 	}
 	
+	/**
+	 +	 * Methode qui regarde si les cases a gauche/droite de la case de param i, j sont de la meme couleur et renvoit le nombre de cases du groupe
+	 +	 * @param grille
+	 +	 * @param i
+	 +	 * @param j
+	 +	 * @return valeur
+	 +	 */
 	public static int  horizontaleCheck(Lettre[][]grille, int i, int j){
 		int valeur=0;
 		int a = j;
@@ -483,6 +545,13 @@ public class Grille{
 		return valeur;
 	}
 	
+	/**
+	 +	 * Methode qui regarde si les cases en haut/bas de la case de param i, j sont de la meme couleur et renvoit le nombre de cases du groupe
+	 +	 * @param grille
+	 +	 * @param i
+	 +	 * @param j
+	 +	 * @return valeur
+	 +	 */
 	public static int  verticalCheck(Lettre[][]grille, int i, int j){
 	int val=0;
 	int a = i;
@@ -515,6 +584,10 @@ public class Grille{
 	return val;
 	}
 	
+	/**
+	 +	 * Methode qui remet le param controleChecked de toutes les cases non controlees a false
+	 +	 * @param grille
+	 +	 */
 	public static void reinitControleChecked(Lettre[][] grille){
 		for (int deb=0; deb<13; deb++){
 			for (int fin=0; fin<13; fin++){
@@ -528,7 +601,11 @@ public class Grille{
 		}
 	}
 	
-	
+	/**
+	 +	 * Methode qui choisit la couleur de l'IA qui lui rapporte le plus de cases et renvoit a grille apres modification
+	 +	 * @param grille
+	 +	 * @return grille
+	 +	 */
 	public static Lettre[][] stepIABest(Lettre[][] grille){
 		int choixCouleur[] = {0,0,0,0,0,0};
 		char choix1=grille[0][0].getLettre();
@@ -1046,7 +1123,13 @@ public class Grille{
 		return grille;
 	}
 
-	
+	/**
+	 +	 * Methode qui permet d'afficher le score du joueur pris en parametre
+	 +	 * @param grille
+	 +	 * @param compteur
+	 +	 * @param joueur
+	 +	 * @return compteur
+	 +	 */
 	public static int checkControle(Lettre[][] grille,int compteur, int joueur, int nbreJoueurs){
 		Font k = new Font("Bookman Old Style", 3, 26);
 		for (int i=0; i<13; i++){
@@ -1096,6 +1179,14 @@ public class Grille{
 		return compteur;
 	}
 	
+	/**
+	 +	 * Methode qui verifie si un joueur possede plus de la moitie des cases du plateau
+	 +	 * @param grille
+	 +	 * @param compteur1
+	 +	 * @param compteur2
+	 +	 * @param ordi
+	 +	 * @return true or false
+	 +	 */
 	public static boolean verifGagnant(Lettre[][] grille,int compteur1, int compteur2, int compteur3, int compteur4, int ordi, int nbreJoueurs){
 		for (int i=0; i<13; i++){
 			for (int j=0; j<13; j++){
@@ -1153,7 +1244,13 @@ public class Grille{
 		}
 	}
 	
-	
+	/**
+	 +	 * Methode qui affiche lque les cases qui ont changé de couleur sans refaire toute la grille
+	 +	 * @param grille
+	 +	 * @param grille2
+	 +	 * @param compteur1
+	 +	 * @param compteur2
+	 +	 */
 	public static void majGrille(Lettre[][] grille, char[][] grille2,  int compteur1, int compteur2, int compteur3, int compteur4){
 		StdDraw.show(0);
 		for (int i=0; i<13; i++){

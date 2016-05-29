@@ -182,6 +182,10 @@ public class Main {
 			Joueur(nbr);
 	}
 	
+	/**
+	 +	 * Methode qui lance la partie en prenant comme parametre le nombre de joueurs
+	 +	 * @param nbreJoueurs
+	 +	 */
 	public static void Joueur(int nbreJoueurs){
 		Lettre[][] couleurs = new Lettre[13][13];
 		int compteurControle1 = 0;
@@ -307,7 +311,10 @@ public class Main {
 			}
 		}
 	}
-	
+	/**
+	 +	 * Methode qui demarre le jeu et propose plusieurs choix a l'utilisateur
+	 +	 * @param retour
+	 +	 */
 	public static void menu(int retour){
 		StdDraw.setCanvasSize(1366, 768);
 		StdDraw.setXscale(-1, 26);
@@ -481,6 +488,9 @@ public class Main {
 		}
 	}
 	
+	/**
+	 +	 * Methode qui affiche la partie regles du jeu du menu
+	 +	 */
 	public static void regles(){
 		StdDraw.show(0);
 		Font j = new Font("Bookman Old Style", 3, 70);
@@ -544,6 +554,15 @@ public class Main {
 		return;
 	}
 	
+	/**
+	 +	 * Methode qui affiche une fenetre lors de l'appuie sur le bouton "retour au menu"
+	 +	 * @param retour
+	 +	 * @param x
+	 +	 * @param grille
+	 +	 * @param compteur1
+	 +	 * @param compteur2
+	 +	 * @param joueur
+	 +	 */
 	public static void restartMenu(int retour, int x, Lettre[][] grille, int compteur1, int compteur2, int compteur3, int compteur4, int joueur, int nbreJoueurs){
 		Font k = new Font("Bookman Old Style", 2, 40);
 		Font l = new Font("Bookman Old Style", 3, 50);
@@ -736,6 +755,13 @@ public class Main {
 		}
 	}
 	
+	/**
+	 +	 * Methode qui fait l'animation apparaissant a la fin de la partie
+	 +	 * @param joueur
+	 +	 * @param grille
+	 +	 * @param compteur1
+	 +	 * @param compteur2
+	 +	 */
 	public static void finDuJeu(String joueur, Lettre[][] grille, int compteur1, int compteur2, int compteur3, int compteur4, int nbreJoueurs){
 		if (compteur1>compteur2&&compteur1>compteur3&&compteur1>compteur4){
 			joueur="Le joueur 1";
