@@ -950,7 +950,7 @@ public class Grille{
 			}
 		}
 		reinitControleChecked(grille);
-		int max = 0;
+		int max = -1;
 		int r=0;
 		for (int ktr = 0; ktr < choixCouleur.length; ktr++) {
 			if (choixCouleur[ktr] > max) {
@@ -959,7 +959,7 @@ public class Grille{
 			}
 		}
 		char choix2=grille[12][12].getLettre();
-		char lettreAvant=grille[12][12].getLettre();
+		char lettreAvant=Character.toLowerCase(grille[12][12].getLettre());
 		if (max==choixCouleur[0]){
 			choix2='r';
 		}
@@ -978,10 +978,9 @@ public class Grille{
 		else if (max==choixCouleur[5]){
 			choix2='i';
 		}
-		
+		choixCouleur[r]= -1;
 		if (choix2==Character.toLowerCase(choix1) || choix2==lettreAvant){
-			choixCouleur[r]= -1;
-			max=0;
+			max=-1;
 			for (int ktr = 0; ktr < choixCouleur.length; ktr++) {
 				if (choixCouleur[ktr] > max) {
 					max = choixCouleur[ktr];
@@ -1006,9 +1005,10 @@ public class Grille{
 			else if (max==choixCouleur[5]){
 				choix2='i';
 			}
+			choixCouleur[r]=-1;
 			if (choix2==Character.toLowerCase(choix1) || choix2==lettreAvant){
-				choixCouleur[r]=-1;
-				max=0;
+				
+				max=-1;
 				for (int ktr = 0; ktr < choixCouleur.length; ktr++) {
 					if (choixCouleur[ktr] > max) {
 						max = choixCouleur[ktr];
