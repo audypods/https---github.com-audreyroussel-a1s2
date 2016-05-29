@@ -123,7 +123,7 @@ public class Grille{
 					StdDraw.filledSquare(j, 11-i, 0.5);
 					StdDraw.setFont(k);
 					StdDraw.setPenColor(StdDraw.WHITE);
-					if (nbreJoueurs==2){
+					if (nbreJoueurs==2||nbreJoueurs==1){
 						StdDraw.text(j, 11-i, "J2");
 					}
 					else{
@@ -1237,6 +1237,10 @@ public class Grille{
 		}
 		if (compteur4>84){
 			Main.finDuJeu("Le joueur 4", grille, compteur1, compteur2, compteur3, compteur4, nbreJoueurs);
+			return true;
+		}
+		if (compteur1+compteur2+compteur3+compteur4>=159){
+			Main.finDuJeu("", grille, compteur1, compteur2, compteur3, compteur4, nbreJoueurs);
 			return true;
 		}
 		else {

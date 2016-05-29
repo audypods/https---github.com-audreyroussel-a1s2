@@ -763,17 +763,19 @@ public class Main {
 	 +	 * @param compteur2
 	 +	 */
 	public static void finDuJeu(String joueur, Lettre[][] grille, int compteur1, int compteur2, int compteur3, int compteur4, int nbreJoueurs){
-		if (compteur1>compteur2&&compteur1>compteur3&&compteur1>compteur4){
-			joueur="Le joueur 1";
-		}
-		if (compteur2>compteur1&&compteur2>compteur3&&compteur2>compteur4){
-			joueur="Le joueur 2";
-		}
-		if (compteur3>compteur1&&compteur3>compteur2&&compteur3>compteur4){
-			joueur="Le joueur 3";
-		} 
-		if (compteur4>compteur1&&compteur4>compteur2&&compteur4>compteur3){
-			joueur="Le joueur 4";
+		if (nbreJoueurs!=1){
+			if (compteur1 > compteur2 && compteur1 > compteur3 && compteur1 > compteur4) {
+				joueur = "Le joueur 1";
+			}
+			if (compteur2 > compteur1 && compteur2 > compteur3 && compteur2 > compteur4) {
+				joueur = "Le joueur 2";
+			}
+			if (compteur3 > compteur1 && compteur3 > compteur2 && compteur3 > compteur4) {
+				joueur = "Le joueur 3";
+			}
+			if (compteur4 > compteur1 && compteur4 > compteur2 && compteur4 > compteur3) {
+				joueur = "Le joueur 4";
+			} 
 		}
 		for (double i=12; i>3; i-=0.16){
 			double[] xx = { 9, 9, 13, 17, 17 };
