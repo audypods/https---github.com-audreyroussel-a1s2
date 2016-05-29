@@ -6,7 +6,13 @@ import java.awt.Font;
 public class Grille{
 	char[][] couleurs;
 	
-	
+	/**
+	 * Methode qui cree la grille
+	 * @param grille
+	 * @param compteur1
+	 * @param compteur2
+	 * @return grille
+	 */
 	public static Lettre[][] creationValeursGrille(Lettre[][] grille, int compteur1, int compteur2){
 		
 		for (int i=0; i<13; i++){
@@ -30,7 +36,13 @@ public class Grille{
 	}
 	
 	
-	
+	/**
+	 * Methode qui dessine la grille
+	 * @param grille
+	 * @param compteur1
+	 * @param compteur2
+	 * @return grille
+	 */
 	public static Lettre[][] dessineGrille(Lettre[][] grille, int compteur1, int compteur2){
 		StdDraw.show(0);
 		for (int i=0; i<13; i++){
@@ -100,6 +112,9 @@ public class Grille{
 		return grille;
 	}
 	
+	/**
+	 * Methode qui dessine les boutons pour choisir la couleur
+	 */
 	public static void dessinCouleurs(){
 		StdDraw.show(0);
 		StdDraw.setPenColor(StdDraw.WHITE);
@@ -137,6 +152,14 @@ public class Grille{
 		StdDraw.show(0);
 	}
 	
+	/**
+	 * Methode qui demande au joueur le choix de sa couleur et modifie la grille ensuite
+	 * @param grille
+	 * @param compteur1
+	 * @param compteur2
+	 * @param joueur
+	 * @return grille
+	 */
 	public static Lettre[][] stepJoueur(Lettre[][] grille, int compteur1, int compteur2, int joueur){
 		StdDraw.show(0);
 		char choix1=grille[0][0].getLettre();
@@ -276,6 +299,11 @@ public class Grille{
 		return grille;
 	}
 	
+	/**
+	 * Methode qui indique au joueur les couleurs a ne pas jouer 
+	 * @param choix1
+	 * @param choix2
+	 */
 	public static void croixCouleurs(char choix1, char choix2){
 		StdDraw.setPenColor(StdDraw.BLACK);
 		if (Character.toLowerCase(choix1)=='i' || Character.toLowerCase(choix2)=='i'){
@@ -304,135 +332,13 @@ public class Grille{
 		}
 	}
 	
-//	public static Lettre[][] stepJoueur2(Lettre[][] grille, int compteur1, int compteur2){
-//		StdDraw.show(0);
-//		char choix1=grille[0][0].getLettre();
-//		char choix2=grille[12][12].getLettre();
-//		char ancienChoix2=grille[12][12].getLettre();
-//		dessinCouleurs();
-//		StdDraw.setPenColor(StdDraw.BLACK);
-//		StdDraw.show(0);
-//		StdDraw.show();
-//		croixCouleurs(ancienChoix2, choix1);
-//		StdDraw.filledRectangle(23, -1.2, 2.5, 0.8);
-//		StdDraw.setPenColor(StdDraw.WHITE);
-//		StdDraw.filledRectangle(23, -1.2, 2.4, 0.7);
-//		StdDraw.picture( 24.5, -1.2, "retour.png");
-//		StdDraw.setPenColor(StdDraw.BLACK);
-//		StdDraw.text(22.5, -0.8, "Retour");
-//		StdDraw.text(22.5, -1.3, "au menu");
-//		String retour="raté";
-//		do{
-//			double x=1,y=1;
-//			while(!StdDraw.mousePressed()){
-//				x = StdDraw.mouseX();
-//				y = StdDraw.mouseY();
-//			}
-//			
-//			if (x>=13 && x<=14 && y>=6.5 && y<=7.5) {
-//				choix2 = 'j';
-//			}
-//			else if (x>=13 && x<=14 && y>=5.3 && y<=6.3){
-//				choix2= 'b';
-//			}
-//			else if (x>=13 && x<=14 && y>=4.1 && y<=5.1){
-//				choix2= 'r';
-//			}
-//			else if (x>=13 && x<=14 && y>=2.9 && y<=3.9){
-//				choix2= 'v';
-//			}
-//			else if (x>=13 && x<=14 && y>=1.7 && y<=2.7){
-//				choix2= 'i';
-//			}
-//			else if (x>=13 && x<=14 && y>=0.5 && y<=1.5){
-//				choix2 = 'o';
-//			}
-//			else if (x>=20.5 && x<=25.5 && y>=-2 && y<=-0.4 ){
-//				retour="menu";
-//			}
-//			else {
-//				choix2='a';
-//			}
-//			if (retour=="menu"){
-//				Main.restartMenu(0, 13, grille, compteur1, compteur2, 2);
-//				croixCouleurs(ancienChoix2, choix1);
-//				retour="raté";
-//				StdDraw.filledRectangle(23, -1.2, 2.5, 0.8);
-//				StdDraw.setPenColor(StdDraw.WHITE);
-//				StdDraw.filledRectangle(23, -1.2, 2.4, 0.7);
-//				StdDraw.picture( 24.5, -1, "retour.png");
-//				StdDraw.setPenColor(StdDraw.BLACK);
-//				StdDraw.text(22.5, -0.8, "Retour");
-//				StdDraw.text(22.5, -1.3, "au menu");
-//			}
-//			
-//		
-//			else if (Character.toLowerCase(choix2) == Character.toLowerCase(choix1)){
-//				StdDraw.picture(20, 0.5, "unecaseblanche.png", 10, 2);
-//				StdDraw.setPenColor(StdDraw.BLACK);
-//				StdDraw.text(20, 1, "vous ne pouvez pas choisir la");
-//				StdDraw.text(20, 0, "même couleur que l'adversaire");
-//			}
-//			
-//			else if (Character.toLowerCase(choix2) == Character.toLowerCase(ancienChoix2)){
-//				StdDraw.picture(20, 0.5, "unecaseblanche.png", 10, 2);
-//				StdDraw.setPenColor(StdDraw.BLACK);
-//				StdDraw.text(20, 1, "vous ne pouvez pas rechoisir");
-//				StdDraw.text(20, 0, "la même couleur !           ");
-//			}
-//
-//			else {
-//				for (int i=12;  i>=0; i--){
-//					for (int j=12; j>=0; j--){
-//						boolean a = grille[i][j].getControle(2);
-//						if (a==true){
-//							grille[i][j].setLettre(choix2);
-//							
-//							boolean test=false;
-//							
-//							if (j!=0){
-//								char d = grille[i][j-1].getLettre();
-//								if (d==choix2){
-//									grille[i][j-1].setControle(2);
-//									grille[i][j-1].setControleChecked(true);
-//								}
-//							}
-//							if (i!=0){
-//								char e = grille[i-1][j].getLettre();
-//								if (e==choix2){
-//									grille[i-1][j].setControle(2);
-//									grille[i-1][j].setControleChecked(true);
-//								}
-//							}
-//							if (j!=12 && test!=true){
-//								char b = grille[i][j+1].getLettre();
-//								if (b==choix2){
-//									grille[i][j+1].setControle(2);
-//									grille[i][j+1].setControleChecked(true);
-//									j+=2;
-//									test=true;
-//								}
-//							}
-//							if (i!=12 && test!=true){
-//								char c = grille[i+1][j].getLettre();
-//								if (c==choix2){
-//									grille[i+1][j].setControle(2);
-//									grille[i+1][j].setControleChecked(true);
-//									i+=1;
-//									j+=1;
-//									test=true;
-//								}
-//							}
-//						}
-//					}
-//				}
-//			}
-//		}while(Character.toLowerCase(choix2) != 'r' && Character.toLowerCase(choix2) != 'v' && Character.toLowerCase(choix2) != 'b' && Character.toLowerCase(choix2) != 'j' && Character.toLowerCase(choix2) != 'o' && Character.toLowerCase(choix2) != 'i' || Character.toLowerCase(choix2) == Character.toLowerCase(choix1) || Character.toLowerCase(choix2) == Character.toLowerCase(ancienChoix2));
-//		StdDraw.picture(20, 0.5, "unecaseblanche.png", 10, 2);
-//		return grille;
-//	}
-	
-	
+	/**
+	 * Methode qui regarde si la case a gauche de la case de param i, j est de la meme couleur qu'elle
+	 * @param grille
+	 * @param i
+	 * @param j
+	 * @return true or false
+	 */
 	public static boolean checkGauche(Lettre[][] grille, int i, int j){
 		if (j!=0){
 			if (grille[i][j].getLettre()==grille[i][j-1].getLettre() && grille[i][j-1].isControleChecked()==false){
@@ -448,6 +354,13 @@ public class Grille{
 		}
 	}
 	
+	/**
+	 * Methode qui regarde si la case a droite de la case de param i, j est de la meme couleur qu'elle
+	 * @param grille
+	 * @param i
+	 * @param j
+	 * @return true or false
+	 */
 	public static boolean checkDroite(Lettre[][] grille, int i, int j){
 		if (j!=12){
 			if (grille[i][j].getLettre()==grille[i][j+1].getLettre() && grille[i][j+1].isControleChecked()==false){
@@ -463,6 +376,13 @@ public class Grille{
 		}
 	}
 	
+	/**
+	 * Methode qui regarde si la case au dessus de la case de param i, j est de la meme couleur qu'elle
+	 * @param grille
+	 * @param i
+	 * @param j
+	 * @return true or false
+	 */
 	public static boolean checkHaut(Lettre[][] grille, int i, int j){
 		if (i!=0){
 			if (grille[i][j].getLettre()==grille[i-1][j].getLettre() && grille[i-1][j].isControleChecked()==false){
@@ -478,6 +398,13 @@ public class Grille{
 		}
 	}
 	
+	/**
+	 * Methode qui regarde si la case en dessous de la case de param i, j est de la meme couleur qu'elle
+	 * @param grille
+	 * @param i
+	 * @param j
+	 * @return true or false
+	 */
 	public static boolean checkBas(Lettre[][] grille, int i, int j){
 		if (i!=12){
 			if (grille[i][j].getLettre()==grille[i+1][j].getLettre() && grille[i+1][j].isControleChecked()==false){
@@ -493,6 +420,13 @@ public class Grille{
 		}
 	}
 	
+	/**
+	 * Methode qui regarde si les cases a gauche/droite de la case de param i, j sont de la meme couleur et renvoit le nombre de cases du groupe
+	 * @param grille
+	 * @param i
+	 * @param j
+	 * @return valeur
+	 */
 	public static int  horizontaleCheck(Lettre[][]grille, int i, int j){
 		int valeur=0;
 		int a = j;
@@ -525,6 +459,13 @@ public class Grille{
 		return valeur;
 	}
 	
+	/**
+	 * Methode qui regarde si les cases en haut/bas de la case de param i, j sont de la meme couleur et renvoit le nombre de cases du groupe
+	 * @param grille
+	 * @param i
+	 * @param j
+	 * @return valeur
+	 */
 	public static int  verticalCheck(Lettre[][]grille, int i, int j){
 	int val=0;
 	int a = i;
@@ -557,6 +498,10 @@ public class Grille{
 	return val;
 	}
 	
+	/**
+	 * Methode qui remet le param controleChecked de toutes les cases non controlees a false
+	 * @param grille
+	 */
 	public static void reinitControleChecked(Lettre[][] grille){
 		for (int deb=0; deb<13; deb++){
 			for (int fin=0; fin<13; fin++){
@@ -570,7 +515,11 @@ public class Grille{
 		}
 	}
 	
-	
+	/**
+	 * Methode qui choisit la couleur de l'IA qui lui rapporte le plus de cases et renvoit a grille apres modification
+	 * @param grille
+	 * @return grille
+	 */
 	public static Lettre[][] stepIABest(Lettre[][] grille){
 		int choixCouleur[] = {0,0,0,0,0,0};
 		char choix1=grille[0][0].getLettre();
@@ -1088,7 +1037,13 @@ public class Grille{
 		return grille;
 	}
 
-	
+	/**
+	 * Methode qui permet d'afficher le score du joueur pris en parametre
+	 * @param grille
+	 * @param compteur
+	 * @param joueur
+	 * @return compteur
+	 */
 	public static int checkControle(Lettre[][] grille,int compteur, int joueur){
 		Font k = new Font("Bookman Old Style", 3, 26);
 		for (int i=0; i<13; i++){
@@ -1121,6 +1076,14 @@ public class Grille{
 		return compteur;
 	}
 	
+	/**
+	 * Methode qui verifie si un joueur possede plus de la moitie des cases du plateau
+	 * @param grille
+	 * @param compteur1
+	 * @param compteur2
+	 * @param ordi
+	 * @return true or false
+	 */
 	public static boolean verifGagnant(Lettre[][] grille,int compteur1, int compteur2, int ordi){
 		for (int i=0; i<13; i++){
 			for (int j=0; j<13; j++){
@@ -1160,7 +1123,13 @@ public class Grille{
 		}
 	}
 	
-	
+	/**
+	 * Methode qui affiche lque les cases qui ont changé de couleur sans refaire toute la grille
+	 * @param grille
+	 * @param grille2
+	 * @param compteur1
+	 * @param compteur2
+	 */
 	public static void majGrille(Lettre[][] grille, char[][] grille2,  int compteur1, int compteur2){
 		StdDraw.show(0);
 		for (int i=0; i<13; i++){
