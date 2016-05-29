@@ -1,5 +1,7 @@
 
 import java.awt.Font;
+import java.util.Scanner;
+
 import edu.princeton.cs.introcs.StdDraw;
 
 
@@ -23,24 +25,40 @@ public class Main {
 		StdDraw.setFont(j);
 		StdDraw.text(13, 11, "Jeu des 6 couleurs");
 		StdDraw.setPenColor(StdDraw.BLACK);
-		StdDraw.picture(13, 7, "unecaseblanche.png", 10, 2);
+		StdDraw.picture(13, 9, "unecaseblanche.png", 10, 2);
 		StdDraw.setFont(k);
-		StdDraw.filledRectangle(9, 4, 0.65, 0.6);
-		StdDraw.filledRectangle(9, 2, 0.65, 0.6);
-		StdDraw.text(13, 7, "Nombre de joueurs?");
-		StdDraw.picture(9, 4, "unecaseblanche.png");
-		StdDraw.picture(9, 2, "unecaseblanche.png");
-		StdDraw.text(9, 4, "1");
-		StdDraw.text(9, 2, "2");
-		StdDraw.filledRectangle(13.9, 4, 4.25, 0.6);
-		StdDraw.filledRectangle(13.9, 2, 4.25, 0.6);
-		StdDraw.picture(13.9, 4, "unecaseblanche.png", 8.5, 1);
-		StdDraw.picture(13.9, 2, "unecaseblanche.png", 8.5, 1);
-		StdDraw.text(13.9, 4, "contre l'ordinateur");
-		StdDraw.text(13.9, 2, "pour un duel");
+		StdDraw.filledRectangle(9, 6.5, 0.65, 0.6);
+		StdDraw.filledRectangle(9, 4.5, 0.65, 0.6);
+		StdDraw.filledRectangle(9, 2.5, 0.65, 0.6);
+		StdDraw.filledRectangle(9, 0.5, 0.65, 0.6);
+		StdDraw.text(13, 9, "Nombre de joueurs?");
+		StdDraw.picture(9, 6.5, "unecaseblanche.png");
+		StdDraw.picture(9, 4.5, "unecaseblanche.png");
+		StdDraw.picture(9, 2.5, "unecaseblanche.png");
+		StdDraw.picture(9, 0.5, "unecaseblanche.png");
+		
+		StdDraw.text(9, 6.5, "1");
+		StdDraw.text(9, 4.5, "2");
+		StdDraw.text(9, 2.5, "3");
+		StdDraw.text(9, 0.5, "4");
+		StdDraw.filledRectangle(13.9, 6.5, 4.25, 0.6);
+		StdDraw.filledRectangle(13.9, 4.5, 4.25, 0.6);
+		StdDraw.filledRectangle(13.9, 2.5, 4.25, 0.6);
+		StdDraw.filledRectangle(13.9, 0.5, 4.25, 0.6);
+		StdDraw.picture(13.9, 6.5, "unecaseblanche.png", 8.5, 1);
+		StdDraw.picture(13.9, 4.5, "unecaseblanche.png", 8.5, 1);
+		StdDraw.picture(13.9, 2.5, "unecaseblanche.png", 8.5, 1);
+		StdDraw.picture(13.9, 0.5, "unecaseblanche.png", 8.5, 1);
+		
+		StdDraw.text(13.9, 6.5, "contre l'ordinateur");
+		StdDraw.text(13.9, 4.5, "à deux");
+		StdDraw.text(13.9, 2.5, "à trois");
+		StdDraw.text(13.9, 0.5, "à quatre");
 		boolean s = true;
 		int g =0;
 		int h =0;
+		int e=0;
+		int f=0;
 		int nbr=0;
 		String retour="joueurs";
 		StdDraw.filledRectangle(23, -0.5, 2.5, 0.8);
@@ -55,12 +73,14 @@ public class Main {
 		StdDraw.show(0);
 		StdDraw.show();
 		while (s==true && nbr!=1 && nbr!=2 && retour!="menu"){
-			if (StdDraw.mouseX()>=8.5 && StdDraw.mouseX()<=18.15 && StdDraw.mouseY()>=3.5 && StdDraw.mouseY()<=4.5){
+			
+			
+			if (StdDraw.mouseX()>=8.5 && StdDraw.mouseX()<=18.15 && StdDraw.mouseY()>=6 && StdDraw.mouseY()<=7){
 				if (g==0){
-					StdDraw.picture(9, 4, "unecasepickedblanche.png");
-					StdDraw.text(9, 4, "1");
-					StdDraw.picture(13.9, 4, "unecasepickedblanche.png", 8.5, 1);
-					StdDraw.text(13.9, 4, "contre l'ordinateur");
+					StdDraw.picture(9, 6.5, "unecasepickedblanche.png");
+					StdDraw.text(9, 6.5, "1");
+					StdDraw.picture(13.9, 6.5, "unecasepickedblanche.png", 8.5, 1);
+					StdDraw.text(13.9, 6.5, "contre l'ordinateur");
 					g=1;
 				}
 				if (StdDraw.mousePressed()){
@@ -70,19 +90,21 @@ public class Main {
 			}
 			else{
 				if (g==1){
-					StdDraw.picture(9, 4, "unecaseblanche.png");
-					StdDraw.text(9, 4, "1");
-					StdDraw.picture(13.9, 4, "unecaseblanche.png", 8.5, 1);
-					StdDraw.text(13.9, 4, "contre l'ordinateur");
+					StdDraw.picture(9, 6.5, "unecaseblanche.png");
+					StdDraw.text(9, 6.5, "1");
+					StdDraw.picture(13.9, 6.5, "unecaseblanche.png", 8.5, 1);
+					StdDraw.text(13.9, 6.5, "contre l'ordinateur");
 					g=0;
 				}
 			}
-			if (StdDraw.mouseX()>=8.5 && StdDraw.mouseX()<=18.15 && StdDraw.mouseY()>=1.5 && StdDraw.mouseY()<=2.5){
+			
+			
+			if (StdDraw.mouseX()>=8.5 && StdDraw.mouseX()<=18.15 && StdDraw.mouseY()>=4 && StdDraw.mouseY()<=5){
 				if (h==0){
-					StdDraw.picture(9, 2, "unecasepickedblanche.png");
-					StdDraw.text(9, 2, "2");
-					StdDraw.picture(13.9, 2, "unecasepickedblanche.png", 8.5, 1);
-					StdDraw.text(13.9, 2, "pour un duel");
+					StdDraw.picture(9, 4.5, "unecasepickedblanche.png");
+					StdDraw.text(9, 4.5, "2");
+					StdDraw.picture(13.9, 4.5, "unecasepickedblanche.png", 8.5, 1);
+					StdDraw.text(13.9, 4.5, "à deux");
 					h=1;
 				}
 				if (StdDraw.mousePressed()){
@@ -92,11 +114,58 @@ public class Main {
 			}
 			else{
 				if (h==1){
-					StdDraw.picture(9, 2, "unecaseblanche.png");
-					StdDraw.text(9, 2, "2");
-					StdDraw.picture(13.9, 2, "unecaseblanche.png", 8.5, 1);
-					StdDraw.text(13.9, 2, "pour un duel");
+					StdDraw.picture(9, 4.5, "unecaseblanche.png");
+					StdDraw.text(9, 4.5, "2");
+					StdDraw.picture(13.9, 4.5, "unecaseblanche.png", 8.5, 1);
+					StdDraw.text(13.9, 4.5, "à deux");
 					h=0;
+				}
+			}
+			
+			
+			if (StdDraw.mouseX()>=8.5 && StdDraw.mouseX()<=18.15 && StdDraw.mouseY()>=2 && StdDraw.mouseY()<=3){
+				if (e==0){
+					StdDraw.picture(9, 2.5, "unecasepickedblanche.png");
+					StdDraw.text(9, 2.5, "3");
+					StdDraw.picture(13.9, 2.5, "unecasepickedblanche.png", 8.5, 1);
+					StdDraw.text(13.9, 2.5, "à trois");
+					e=1;
+				}
+				if (StdDraw.mousePressed()){
+					s= false;
+					nbr = 3;
+				}
+			}
+			else{
+				if (e==1){
+					StdDraw.picture(9, 2.5, "unecaseblanche.png");
+					StdDraw.text(9, 2.5, "3");
+					StdDraw.picture(13.9, 2.5, "unecaseblanche.png", 8.5, 1);
+					StdDraw.text(13.9, 2.5, "à trois");
+					e=0;
+				}
+			}
+			
+			if (StdDraw.mouseX()>=8.5 && StdDraw.mouseX()<=18.15 && StdDraw.mouseY()>=0 && StdDraw.mouseY()<=1){
+				if (f==0){
+					StdDraw.picture(9, 0.5, "unecasepickedblanche.png");
+					StdDraw.text(9, 0.5, "4");
+					StdDraw.picture(13.9, 0.5, "unecasepickedblanche.png", 8.5, 1);
+					StdDraw.text(13.9, 0.5, "à quatre");
+					f=1;
+				}
+				if (StdDraw.mousePressed()){
+					s= false;
+					nbr = 4;
+				}
+			}
+			else{
+				if (f==1){
+					StdDraw.picture(9, 0.5, "unecaseblanche.png");
+					StdDraw.text(9, 0.5, "4");
+					StdDraw.picture(13.9, 0.5, "unecaseblanche.png", 8.5, 1);
+					StdDraw.text(13.9, 0.5, "à quatre");
+					f=0;
 				}
 			}
 			if (StdDraw.mouseX()>=20.5 && StdDraw.mouseX()<=25.5 && StdDraw.mouseY()>=-1.3 && StdDraw.mouseY()<=0.3 ){
@@ -105,31 +174,46 @@ public class Main {
 				}
 			}
 		}
-		if (nbr==1){
-			Joueur(1);
-		}
-		else if (retour=="menu"){
+		
+		if (retour=="menu"){
 			menu(1);
 		}
-		else{
-			Joueur(2);
-		}
+		else
+			Joueur(nbr);
 	}
 	
 	public static void Joueur(int nbreJoueurs){
 		Lettre[][] couleurs = new Lettre[13][13];
 		int compteurControle1 = 0;
 		int compteurControle2 = 0;
+		int compteurControle3 = 0;
+		int compteurControle4 = 0;
 		int m=1;
 		Font j = new Font("Bookman Old Style", 3, 28);
-		Grille.creationValeursGrille(couleurs, compteurControle1, compteurControle2);
+		Grille.creationValeursGrille(couleurs, compteurControle1, compteurControle2, compteurControle3, compteurControle4, nbreJoueurs);
 		StdDraw.picture(13, 5, "357653blanc.jpg");
-		StdDraw.picture(20, 5, "unecaseblanche.png", 7, 1);
-		StdDraw.picture(20, 4, "unecaseblanche.png", 7, 1);
+		if (nbreJoueurs<3){
+			StdDraw.picture(20, 4.5, "unecaseblanche.png", 7, 1);
+			StdDraw.picture(20, 3.5, "unecaseblanche.png", 7, 1);
+		}
+		if (nbreJoueurs==3){
+			StdDraw.picture(20, 5, "unecaseblanche.png", 7, 1);
+			StdDraw.picture(20, 4, "unecaseblanche.png", 7, 1);
+			StdDraw.picture(20, 3, "unecaseblanche.png", 7, 1);
+		}
+		if (nbreJoueurs==4){
+			StdDraw.picture(20, 5.5, "unecaseblanche.png", 7, 1);
+			StdDraw.picture(20, 4.5, "unecaseblanche.png", 7, 1);
+			StdDraw.picture(20, 3.5, "unecaseblanche.png", 7, 1);
+			StdDraw.picture(20, 2.5, "unecaseblanche.png", 7, 1);
+		}
 		StdDraw.picture(20, 0.5, "unecaseblanche.png", 10, 2);
-		Grille.checkControle(couleurs, compteurControle1, 1);
-		Grille.checkControle(couleurs, compteurControle2, 3);
-		Grille.dessineGrille(couleurs, compteurControle1, compteurControle2);
+		Grille.checkControle(couleurs, compteurControle1, 1, nbreJoueurs);
+		Grille.checkControle(couleurs, compteurControle2, 5, nbreJoueurs);
+		Grille.checkControle(couleurs, compteurControle2, 2, nbreJoueurs);
+		Grille.checkControle(couleurs, compteurControle3, 3, nbreJoueurs);
+		Grille.checkControle(couleurs, compteurControle4, 4, nbreJoueurs);
+		Grille.dessineGrille(couleurs, compteurControle1, compteurControle2, compteurControle3, compteurControle4, nbreJoueurs);
 		char[][] grille2 = new char[13][13];
 		while (m<=169){
 			for (int k=0; k<13; k++)
@@ -141,7 +225,7 @@ public class Main {
 			if (nbreJoueurs==1){
 				if (m%2!=0 && m!=2){
 					StdDraw.text(20, 7, "C'est au Joueur 1");
-					Grille.stepJoueur(couleurs, compteurControle1, compteurControle2, 1);
+					Grille.stepJoueur(couleurs, compteurControle1, compteurControle2, compteurControle3, compteurControle4, 1, nbreJoueurs);
 				}
 				else {
 					StdDraw.text(20, 7, "C'est à l'ordinateur");
@@ -149,73 +233,80 @@ public class Main {
 				}
 			}
 			else{
-				if (m%2!=0 && m!=2){
-					StdDraw.text(20, 7, "C'est au Joueur 1");
-					Grille.stepJoueur(couleurs, compteurControle1, compteurControle2, 1);
+				if (nbreJoueurs==2){
+					if (m%2==1 || m==1){
+						StdDraw.text(20, 7, "C'est au Joueur 1");
+						Grille.stepJoueur(couleurs, compteurControle1, compteurControle2,  compteurControle3, compteurControle4, 1, nbreJoueurs);
+					}
+					else{
+						StdDraw.text(20, 7, "C'est au Joueur 2");
+						Grille.stepJoueur(couleurs, compteurControle1, compteurControle2,  compteurControle3, compteurControle4, 2, nbreJoueurs);
+					}
 				}
-				else {
-					StdDraw.text(20, 7, "C'est au Joueur 2");
-					Grille.stepJoueur(couleurs, compteurControle1, compteurControle2, 2);
-				}	
+				if (nbreJoueurs==3){
+					if(m%3==1||m==1){
+						StdDraw.text(20, 7, "C'est au Joueur 1");
+						Grille.stepJoueur(couleurs, compteurControle1, compteurControle2,  compteurControle3, compteurControle4, 1, nbreJoueurs);
+					}
+					if(m%3==2||m==2){
+						StdDraw.text(20, 7, "C'est au Joueur 2");
+						Grille.stepJoueur(couleurs, compteurControle1, compteurControle2,  compteurControle3, compteurControle4, 2, nbreJoueurs);
+					}
+					if (m%3==0||m==3){
+						StdDraw.text(20, 7, "C'est au Joueur 3");
+						Grille.stepJoueur(couleurs, compteurControle1, compteurControle2,  compteurControle3, compteurControle4, 3, nbreJoueurs);
+					}
+				}
+				if (nbreJoueurs==4){
+					if(m%4==1||m==1){
+						StdDraw.text(20, 7, "C'est au Joueur 1");
+						Grille.stepJoueur(couleurs, compteurControle1, compteurControle2,  compteurControle3, compteurControle4, 1, nbreJoueurs);
+					}
+					if(m%4==2||m==2){
+						StdDraw.text(20, 7, "C'est au Joueur 2");
+						Grille.stepJoueur(couleurs, compteurControle1, compteurControle2,  compteurControle3, compteurControle4, 2, nbreJoueurs);
+					}
+					if(m%4==3||m==3){
+						StdDraw.text(20, 7, "C'est au Joueur 3");
+						Grille.stepJoueur(couleurs, compteurControle1, compteurControle2,  compteurControle3, compteurControle4, 3,nbreJoueurs);
+					}
+					if (m%4==0||m==4) {
+						StdDraw.text(20, 7, "C'est au Joueur 4");
+						Grille.stepJoueur(couleurs, compteurControle1, compteurControle2,  compteurControle3, compteurControle4, 4, nbreJoueurs);
+					}
+				}
+				
 			}
 			
-			Grille.majGrille(couleurs, grille2, compteurControle1, compteurControle2);
-			StdDraw.picture(20, 5, "unecaseblanche.png", 7, 1);
-			StdDraw.picture(20, 4, "unecaseblanche.png", 7, 1);
+			Grille.majGrille(couleurs, grille2, compteurControle1, compteurControle2, compteurControle3, compteurControle4);
+			
+			if (nbreJoueurs<3){
+				StdDraw.picture(20, 4.5, "unecaseblanche.png", 7, 1);
+				StdDraw.picture(20, 3.5, "unecaseblanche.png", 7, 1);
+			}
+			if (nbreJoueurs==3){
+				StdDraw.picture(20, 5, "unecaseblanche.png", 7, 1);
+				StdDraw.picture(20, 4, "unecaseblanche.png", 7, 1);
+				StdDraw.picture(20, 3, "unecaseblanche.png", 7, 1);
+			}
+			if (nbreJoueurs==4){
+				StdDraw.picture(20, 5.5, "unecaseblanche.png", 7, 1);
+				StdDraw.picture(20, 4.5, "unecaseblanche.png", 7, 1);
+				StdDraw.picture(20, 3.5, "unecaseblanche.png", 7, 1);
+				StdDraw.picture(20, 2.5, "unecaseblanche.png", 7, 1);
+			}
 			StdDraw.setPenColor(StdDraw.BLACK);
-			Grille.checkControle(couleurs, compteurControle1, 1);
-			Grille.checkControle(couleurs, compteurControle2, 2);
+			Grille.checkControle(couleurs, compteurControle1, 1, nbreJoueurs);
+			Grille.checkControle(couleurs, compteurControle2, 2, nbreJoueurs);
+			Grille.checkControle(couleurs, compteurControle3, 3, nbreJoueurs);
+			Grille.checkControle(couleurs, compteurControle4, 4, nbreJoueurs);
+			Grille.checkControle(couleurs, compteurControle2, 5, nbreJoueurs);
 			m+=1;
-			if (Grille.verifGagnant(couleurs, compteurControle1, compteurControle2, 1)==true){
+			if (Grille.verifGagnant(couleurs, compteurControle1, compteurControle2, compteurControle3, compteurControle4, 1, nbreJoueurs)==true){
 				m=170;
 			}
 		}
 	}
-	
-	
-	
-//	public static void DeuxJoueurs(){
-//		Lettre[][] couleurs = new Lettre[13][13];
-//		int compteurControle1 = 0;
-//		int compteurControle2 = 0;
-//		int m=1;
-//		Font j = new Font("Bookman Old Style", 3, 28);
-//		Grille.creationValeursGrille(couleurs, compteurControle1, compteurControle2);
-//		StdDraw.picture(13, 5, "357653blanc.jpg");
-//		StdDraw.picture(20, 5, "unecaseblanche.png", 7, 1);
-//		StdDraw.picture(20, 4, "unecaseblanche.png", 7, 1);
-//		StdDraw.picture(20, 0.5, "unecaseblanche.png", 10, 2);
-//		Grille.checkControle(couleurs, compteurControle1, 1);
-//		Grille.checkControle(couleurs, compteurControle2, 2);
-//		Grille.dessineGrille(couleurs, compteurControle1, compteurControle2);
-//		char[][] grille2 = new char[13][13];
-//		while (m<=169){
-//			for (int k=0; k<13; k++)
-//				for (int l=0; l<13; l++)
-//					grille2[k][l]=couleurs[k][l].getLettre();
-//			StdDraw.setPenColor(StdDraw.BLACK);
-//			StdDraw.setFont(j);
-//			StdDraw.picture(20, 7, "unecaseblanche.png", 9, 1);
-//			if (m%2!=0 && m!=2){
-//				StdDraw.text(20, 7, "C'est au Joueur 1");
-//				Grille.stepJoueur1(couleurs, compteurControle1, compteurControle2);
-//			}
-//			else {
-//				StdDraw.text(20, 7, "C'est au Joueur 2");
-//				Grille.stepJoueur2(couleurs, compteurControle1, compteurControle2);
-//			}
-//			Grille.majGrille(couleurs, grille2, compteurControle1, compteurControle2);
-//			StdDraw.picture(20, 5, "unecaseblanche.png", 7, 1);
-//			StdDraw.picture(20, 4, "unecaseblanche.png", 7, 1);
-//			StdDraw.setPenColor(StdDraw.BLACK);
-//			Grille.checkControle(couleurs, compteurControle1, 1);
-//			Grille.checkControle(couleurs, compteurControle2, 2);
-//			m+=1;
-//			if (Grille.verifGagnant(couleurs, compteurControle1, compteurControle2, 0)==true){
-//				m=170;
-//			}
-//		}
-//	}
 	
 	public static void menu(int retour){
 		StdDraw.setCanvasSize(1366, 768);
@@ -453,7 +544,7 @@ public class Main {
 		return;
 	}
 	
-	public static void restartMenu(int retour, int x, Lettre[][] grille, int compteur1, int compteur2, int joueur){
+	public static void restartMenu(int retour, int x, Lettre[][] grille, int compteur1, int compteur2, int compteur3, int compteur4, int joueur, int nbreJoueurs){
 		Font k = new Font("Bookman Old Style", 2, 40);
 		Font l = new Font("Bookman Old Style", 3, 50);
 		StdDraw.picture(x, 6.7, "unecaseblanche.png", 8.5, 8);
@@ -615,12 +706,16 @@ public class Main {
 				StdDraw.show(0);
 				Font j = new Font("Bookman Old Style", 3, 28);
 				StdDraw.picture(13, 5, "357653blanc.jpg");
-				StdDraw.picture(20, 5, "unecaseblanche.png", 7, 1);
-				StdDraw.picture(20, 4, "unecaseblanche.png", 7, 1);
+				StdDraw.picture(20, 5.5, "unecaseblanche.png", 7, 1);
+				StdDraw.picture(20, 4.5, "unecaseblanche.png", 7, 1);
+				StdDraw.picture(20, 3.5, "unecaseblanche.png", 7, 1);
+				StdDraw.picture(20, 2.5, "unecaseblanche.png", 7, 1);
 				StdDraw.picture(20, 0.5, "unecaseblanche.png", 10, 2);
-				Grille.checkControle(grille, compteur1, 1);
-				Grille.checkControle(grille, compteur2, 2);
-				Grille.dessineGrille(grille, compteur1, compteur2);
+				Grille.checkControle(grille, compteur1, 1, nbreJoueurs);
+				Grille.checkControle(grille, compteur2, 2, nbreJoueurs);
+				Grille.checkControle(grille, compteur3, 3, nbreJoueurs);
+				Grille.checkControle(grille, compteur4, 4, nbreJoueurs);
+				Grille.dessineGrille(grille, compteur1, compteur2, compteur3, compteur4, nbreJoueurs);
 				Grille.dessinCouleurs();
 				StdDraw.setFont(j);
 				StdDraw.setPenColor(StdDraw.BLACK);
@@ -641,7 +736,19 @@ public class Main {
 		}
 	}
 	
-	public static void finDuJeu(String joueur, Lettre[][] grille, int compteur1, int compteur2){
+	public static void finDuJeu(String joueur, Lettre[][] grille, int compteur1, int compteur2, int compteur3, int compteur4, int nbreJoueurs){
+		if (compteur1>compteur2&&compteur1>compteur3&&compteur1>compteur4){
+			joueur="Le joueur 1";
+		}
+		if (compteur2>compteur1&&compteur2>compteur3&&compteur2>compteur4){
+			joueur="Le joueur 2";
+		}
+		if (compteur3>compteur1&&compteur3>compteur2&&compteur3>compteur4){
+			joueur="Le joueur 3";
+		} 
+		if (compteur4>compteur1&&compteur4>compteur2&&compteur4>compteur3){
+			joueur="Le joueur 4";
+		}
 		for (double i=12; i>3; i-=0.16){
 			double[] xx = { 9, 9, 13, 17, 17 };
 			double[] yy = { 13, i, i-1, i, 13 };
@@ -663,6 +770,6 @@ public class Main {
 			StdDraw.show(5);
 		}
 		StdDraw.show();
-		restartMenu(0, 4, grille, compteur1, compteur2, 0);
+		restartMenu(0, 4, grille, compteur1, compteur2, compteur3, compteur4, 0, nbreJoueurs);
 	}
 }
