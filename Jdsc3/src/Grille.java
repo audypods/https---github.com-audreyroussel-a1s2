@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 import edu.princeton.cs.introcs.StdDraw;
 import java.lang.Character;
@@ -156,8 +157,7 @@ public class Grille{
 				StdDraw.setPenColor(StdDraw.BLACK);
 				StdDraw.square(6, 5, 6.5);
 				}
-			System.out.println(" ");
-			System.out.println("-----------------------------------------------------");
+			System.out.println(" \n-----------------------------------------------------");
 		}
 		
 		StdDraw.show(0);
@@ -433,6 +433,66 @@ public class Grille{
 			StdDraw.line(13, 0.5, 14, 1.5);
 			StdDraw.line(13, 1.5, 14, 0.5);
 		}
+	}
+	
+	/**
+	 +  * Methode de l'IA qui fait le choix de la couleur au hasard
+	 +  * @param grille
+	 +  * @return grille
+	 +  */
+	public static Lettre[][] stepIAHasard(Lettre[][] grille){
+		
+		char choix1=grille[0][0].getLettre();
+		char memechoix2=grille[12][12].getLettre();
+		char[] couleurHasard = {'r','o','j','v','b','i'};
+		Random rand = new Random();
+		int z = rand.nextInt(6);
+		char choix2 = couleurHasard[z];
+		while (choix2==Character.toLowerCase(choix1) || choix2==Character.toLowerCase(memechoix2)){
+			z = rand.nextInt(6);
+			choix2 = couleurHasard[z];
+		}
+			for (int i=12;  i>=0; i--){
+				for (int j=12; j>=0; j--){
+					boolean a = grille[i][j].getControle(2);
+					if (a==true){
+						grille[i][j].setLettre(choix2);
+						
+						boolean test=false;
+						
+						if (j!=0){
+							char d = grille[i][j-1].getLettre();
+							if (d==choix2){
+								grille[i][j-1].setControle(2);
+							}
+						}
+						if (i!=0){
+							char e = grille[i-1][j].getLettre();
+							if (e==choix2){
+								grille[i-1][j].setControle(2);
+							}
+						}
+						if (j!=12 && test!=true){
+							char b = grille[i][j+1].getLettre();
+							if (b==choix2){
+								grille[i][j+1].setControle(2);
+								j+=2;
+								test=true;
+							}
+						}
+						if (i!=12 && test!=true){
+							char c = grille[i+1][j].getLettre();
+							if (c==choix2){
+								grille[i+1][j].setControle(2);
+								i+=1;
+								j+=1;
+								test=true;
+							}
+						}
+					}
+				}
+			}
+		return grille;
 	}
 	
 	/**
@@ -1256,7 +1316,7 @@ public class Grille{
 			Main.finDuJeu("Le joueur 4", grille, compteur1, compteur2, compteur3, compteur4, nbreJoueurs);
 			return true;
 		}
-		if (compteur1+compteur2+compteur3+compteur4>=159){
+		if (compteur1+compteur2+compteur3+compteur4==169){
 			Main.finDuJeu("", grille, compteur1, compteur2, compteur3, compteur4, nbreJoueurs);
 			return true;
 		}
@@ -1337,6 +1397,10 @@ public class Grille{
 		StdDraw.show();
 	}
 	
+	/*
+	+ 	* Methode pour entourer de noir les cases controllées par un joueur
+	+	* @param grille
+	+	*/
 	public static void casesControlee(Lettre[][] grille){
 		StdDraw.show(0);
 		StdDraw.setPenColor(StdDraw.BLACK);
