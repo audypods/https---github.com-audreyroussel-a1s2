@@ -1,4 +1,4 @@
-
+import java.util.Scanner;
 import edu.princeton.cs.introcs.StdDraw;
 import java.lang.Character;
 import java.awt.Font;
@@ -66,9 +66,11 @@ public class Grille{
 	 +	 */
 	public static Lettre[][] dessineGrille(Lettre[][] grille, int compteur1, int compteur2, int compteur3, int compteur4, int nbreJoueurs){
 		StdDraw.show(0);
+		System.out.println("-----------------------------------------------------");
 		for (int i=0; i<13; i++){
+			System.out.print("| ");
 			for (int j=0; j<13; j++){
-				
+				System.out.print(grille[i][j].getLettre()+" | ");
 				if (grille[i][j].getLettre()=='r' || grille[i][j].getLettre()=='R')
 					StdDraw.setPenColor(StdDraw.RED);
 				else if (grille[i][j].getLettre()=='b' || grille[i][j].getLettre()=='B')
@@ -82,7 +84,7 @@ public class Grille{
 				else if (grille[i][j].getLettre()=='i' || grille[i][j].getLettre()=='I')
 					StdDraw.setPenColor(204,51,204);
 				else if (grille[i][j].getLettre()=='n' || grille[i][j].getLettre()=='N')
-					StdDraw.setPenColor(StdDraw.BLACK);
+				StdDraw.setPenColor(StdDraw.BLACK);
 				StdDraw.setPenRadius(0.01);
 				StdDraw.filledSquare(j, 11-i, 0.5);
 				
@@ -101,11 +103,23 @@ public class Grille{
 					StdDraw.filledCircle(j, 11-i, 0.05);
 				}
 				
+				else if (grille[i][j].getControle(3)==true){
+					StdDraw.setPenRadius(0.005);
+					StdDraw.setPenColor(StdDraw.WHITE);
+					StdDraw.filledCircle(j, 11-i, 0.05);
+				}
+				
+				else if (grille[i][j].getControle(4)==true){
+					StdDraw.setPenRadius(0.005);
+					StdDraw.setPenColor(StdDraw.WHITE);
+					StdDraw.filledCircle(j, 11-i, 0.05);
+				}
+				
 				Font k = new Font("Verdana", 3, 40);
 				
 				if (grille[i][j].getLettre()=='N' && i==0 && j==0){
 					StdDraw.setPenColor(StdDraw.BLACK);
-					StdDraw.filledSquare(j, 11-i, 0.5);
+//					StdDraw.filledSquare(j, 11-i, 0.5);
 					StdDraw.setFont(k);
 					StdDraw.setPenColor(StdDraw.WHITE);
 					StdDraw.text(j, 11-i, "J1");
@@ -142,7 +156,10 @@ public class Grille{
 				StdDraw.setPenColor(StdDraw.BLACK);
 				StdDraw.square(6, 5, 6.5);
 				}
+			System.out.println(" ");
+			System.out.println("-----------------------------------------------------");
 		}
+		
 		StdDraw.show(0);
 		StdDraw.show();
 		return grille;
@@ -300,18 +317,18 @@ public class Grille{
 			}
 			
 			if (retour=="menu"){
-				Main.restartMenu(0, 13, grille, compteur1, compteur2, compteur3, compteur4, 1, nbreJoueurs);
+				Main.restartMenu(0, 13, grille, compteur1, compteur2, compteur3, compteur4, joueur, nbreJoueurs);
 				croixCouleurs(ancienChoix, autreChoix1, autreChoix2, autreChoix3, nbreJoueurs);
 				retour="raté";
 				StdDraw.filledRectangle(23, -1.2, 2.5, 0.8);
 				StdDraw.setPenColor(StdDraw.WHITE);
 				StdDraw.filledRectangle(23, -1.2, 2.4, 0.7);
-				StdDraw.picture( 24.5, -1, "retour.png");
+				StdDraw.picture( 24.5, -1.2, "retour.png");
 				StdDraw.setPenColor(StdDraw.BLACK);
 				StdDraw.text(22.5, -0.8, "Retour");
 				StdDraw.text(22.5, -1.3, "au menu");
 			}
-			if (Character.toLowerCase(choix) == Character.toLowerCase(autreChoix1)||Character.toLowerCase(choix) == Character.toLowerCase(autreChoix2)||Character.toLowerCase(choix) == Character.toLowerCase(autreChoix3)){
+			else if (Character.toLowerCase(choix) == Character.toLowerCase(autreChoix1)||Character.toLowerCase(choix) == Character.toLowerCase(autreChoix2)||Character.toLowerCase(choix) == Character.toLowerCase(autreChoix3)){
 				StdDraw.picture(20, 0.5, "unecaseblanche.png", 10, 2);
 				StdDraw.setPenColor(StdDraw.BLACK);
 				StdDraw.text(20, 1, "vous ne pouvez pas choisir la");
@@ -1150,14 +1167,14 @@ public class Grille{
 				if (joueur==1)
 					StdDraw.text(20, 4.5, "Le joueur a " + compteur + " case(s)");
 			}
-			if (nbreJoueurs==2){
+			else if (nbreJoueurs==2){
 				if (joueur==1)
 					StdDraw.text(20, 4.5, "Le joueur " + joueur + " a " + compteur + " case(s)");
 				if (joueur==2)
 					StdDraw.text(20, 3.5, "Le joueur " + joueur + " a " + compteur + " case(s)");
 			}
 			
-			if (nbreJoueurs==3){
+			else if (nbreJoueurs==3){
 				if (joueur==1)
 					StdDraw.text(20, 5, "Le joueur " + joueur + " a " + compteur + " case(s)");
 				if (joueur==2)
@@ -1166,7 +1183,7 @@ public class Grille{
 					StdDraw.text(20, 3, "Le joueur " + joueur + " a " + compteur + " case(s)");
 			}
 		
-			if (nbreJoueurs==4){
+			else if (nbreJoueurs==4){
 				if (joueur==1)
 					StdDraw.text(20, 5.5, "Le joueur " + joueur + " a " + compteur + " case(s)");
 				if (joueur==2)
@@ -1257,8 +1274,11 @@ public class Grille{
 	 +	 */
 	public static void majGrille(Lettre[][] grille, char[][] grille2,  int compteur1, int compteur2, int compteur3, int compteur4){
 		StdDraw.show(0);
+		System.out.println("-----------------------------------------------------");
 		for (int i=0; i<13; i++){
+			System.out.print("|");
 			for (int j=0; j<13; j++){
+				System.out.print(" "+ grille[i][j].getLettre()+" |");
 				if (grille2[i][j] != grille[i][j].getLettre()){
 					if (grille[i][j].getLettre()=='r' || grille[i][j].getLettre()=='R')
 						StdDraw.setPenColor(StdDraw.RED);
@@ -1302,15 +1322,34 @@ public class Grille{
 					StdDraw.setPenRadius(0.005);
 					StdDraw.setPenColor(StdDraw.BLACK);
 					StdDraw.square(6, 5, 6.5);
-				} else{
-					
-				}
+				} 
+				
 			}
+			System.out.println();
+			System.out.println("-----------------------------------------------------");
 		}
+
+		System.out.println();
 		StdDraw.setPenRadius(0.01);
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.square(6, 5, 6.5);
 		StdDraw.show(0);
 		StdDraw.show();
+	}
+	
+	public static void casesControlee(Lettre[][] grille){
+		StdDraw.show(0);
+		StdDraw.setPenColor(StdDraw.BLACK);
+		for (int i=0; i<13; i++){
+			for (int j=0; j<13; j++){
+				if (grille[i][j].getControle(1)==true || grille[i][j].getControle(2)==true || grille[i][j].getControle(3)==true || grille[i][j].getControle(4)==true){
+					StdDraw.setPenRadius(0.01);
+					StdDraw.square(j, 11-i, 0.5);
+				}
+			}
+		}
+		StdDraw.show(0);
+		StdDraw.show();
+		
 	}
 }
